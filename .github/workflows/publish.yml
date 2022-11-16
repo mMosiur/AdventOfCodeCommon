@@ -30,7 +30,8 @@ jobs:
       uses: actions/upload-artifact@v3.1.1
       with:
         name: package
-        path: bin/Release/mMosiur.AdventOfCode.Common.*.nupkg
+        path: ./bin/Release/mMosiur.AdventOfCode.Common.*.nupkg
+        if-no-files-found: error
 
   publish-package-to-github:
     needs: build-package

@@ -1,14 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE Project>
-
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Library</OutputType>
     <TargetFramework>net7.0</TargetFramework>
-    <LangVersion>preview</LangVersion>
-    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>AdventOfCode.Common</RootNamespace>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>mMosiur.AdventOfCode.Common</PackageId>
+    <Title>Advent of Code Common</Title>
+    <Version>0.0.1</Version>
+    <Authors>mMosiur</Authors>
+    <Description>This package contains common structures, functions and helpers for AoC puzzle solving.</Description>
+    <RepositoryUrl>https://github.com/mMosiur/AdventOfCodeCommon</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

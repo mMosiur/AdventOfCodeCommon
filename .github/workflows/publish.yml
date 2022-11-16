@@ -1,0 +1,57 @@
+name: Publish NuGet package
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+    - Source/**
+  workflow_dispatch:
+
+jobs:
+
+  build-package:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Source
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Create package
+      run: dotnet pack --configuration Release --no-build
+    - name: Upload built package
+      uses: actions/upload-artifact@v3.1.1
+      with:
+        name: package
+        path: bin/Release/mMosiur.AdventOfCode.Common.*.nupkg
+
+  publish-package-to-github:
+    needs: build-package
+    runs-on: ubuntu-latest
+    steps:
+    - name: Add GitHub NuGet source
+      run: dotnet nuget add source --username mMosiur --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/mMosiur/index.json"
+    - name: Download built package
+      uses: actions/download-artifact@v3.0.1
+      with:
+        name: package
+    - name: Publish package to GitHub
+      run: dotnet nuget push "mMosiur.AdventOfCode.Common.*.nupkg" --source github --skip-duplicate
+
+  publish-package-to-nuget:
+    needs: build-package
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download built package
+      uses: actions/download-artifact@v3.0.1
+      with:
+        name: package
+    - name: Publish package to NuGet
+      run: dotnet nuget push "mMosiur.AdventOfCode.Common.*.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "${{ secrets.NUGET_API_KEY }}" --skip-duplicate

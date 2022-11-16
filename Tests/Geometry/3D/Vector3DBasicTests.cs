@@ -14,14 +14,17 @@ public class Vector3DBasicTests
 		Vector3D<T> v1 = new(three, two, one);
 		Vector3D<T> v2 = new(three, four, one);
 		Assert.NotEqual(v2, v1);
+		Assert.True(v1 != v2);
 		Vector3D<T> v3 = v1 with { Y = four };
 		Assert.Equal(v2, v3);
+		Assert.True(v2 == v3);
 		(T t1, T t2, T t3) = v3;
 		Assert.Equal(three, t1);
 		Assert.Equal(four, t2);
 		Assert.Equal(one, t3);
 		Vector3D<T> zeros = new(T.Zero, T.Zero, T.Zero);
 		Assert.Equal(zeros, Vector3D<T>.Zero);
+		Assert.True(zeros == Vector3D<T>.Zero);
 	}
 
 	[Fact] public void TestSbyteVectorCreationAndBasicBehavior() => TestTVectorCreationAndBasicBehavior<sbyte>();

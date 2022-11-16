@@ -14,14 +14,17 @@ public class Point3DBasicTests
 		Point3D<T> p1 = new(three, two, one);
 		Point3D<T> p2 = new(three, four, one);
 		Assert.NotEqual(p2, p1);
+		Assert.True(p1 != p2);
 		Point3D<T> p3 = p1 with { Y = four };
 		Assert.Equal(p2, p3);
+		Assert.True(p2 == p3);
 		(T t1, T t2, T t3) = p3;
 		Assert.Equal(three, t1);
 		Assert.Equal(four, t2);
 		Assert.Equal(one, t3);
 		Point3D<T> zeros = new(T.Zero, T.Zero, T.Zero);
 		Assert.Equal(zeros, Point3D<T>.Origin);
+		Assert.True(zeros == Point3D<T>.Origin);
 	}
 
 	[Fact] public void TestSbytePointCreationAndBasicBehavior() => TestTPointCreationAndBasicBehavior<sbyte>();

@@ -14,13 +14,16 @@ public class Vector2DBasicTests
 		Vector2D<T> v1 = new(three, two);
 		Vector2D<T> v2 = new(three, four);
 		Assert.NotEqual(v2, v1);
+		Assert.True(v1 != v2);
 		Vector2D<T> v3 = v1 with { Y = four };
 		Assert.Equal(v2, v3);
+		Assert.True(v2 == v3);
 		(T t1, T t2) = v3;
 		Assert.Equal(three, t1);
 		Assert.Equal(four, t2);
 		Vector2D<T> zeros = new(T.Zero, T.Zero);
 		Assert.Equal(zeros, Vector2D<T>.Zero);
+		Assert.True(zeros == Vector2D<T>.Zero);
 	}
 
 	[Fact] public void TestSbyteVectorCreationAndBasicBehavior() => TestTVectorCreationAndBasicBehavior<sbyte>();

@@ -14,6 +14,7 @@
     <Authors>mMosiur</Authors>
     <Description>This package contains common structures, functions and helpers for Advent of Code puzzle solving.</Description>
     <RepositoryUrl>https://github.com/mMosiur/AdventOfCodeCommon</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/mMosiur/AdventOfCodeCommon</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>

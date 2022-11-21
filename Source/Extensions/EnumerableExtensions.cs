@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace AdventOfCode.Common.EnumerableExtensions;
 
+/// <summary>
+/// Provides extension methods for <see cref="Enumerable"/> and <see cref="IEnumerable{T}"/> types.
+/// </summary>
 public static class EnumerableExtensions
 {
 	/// <summary>

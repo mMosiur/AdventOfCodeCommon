@@ -10,6 +10,7 @@ public readonly struct Vector2D<T> :
 	IAdditionOperators<Vector2D<T>, Vector2D<T>, Vector2D<T>>,
 	IAdditionOperators<Vector2D<T>, Point2D<T>, Point2D<T>>,
 	ISubtractionOperators<Vector2D<T>, Vector2D<T>, Vector2D<T>>,
+	IDivisionOperators<Vector2D<T>, T, Vector2D<T>>,
 	IMultiplyOperators<Vector2D<T>, T, Vector2D<T>>,
 	IUnaryNegationOperators<Vector2D<T>, Vector2D<T>>,
 	IUnaryPlusOperators<Vector2D<T>, Vector2D<T>>,
@@ -48,6 +49,7 @@ public readonly struct Vector2D<T> :
 	public static Vector2D<T> operator +(Vector2D<T> left, Vector2D<T> right) => new(left.X + right.X, left.Y + right.Y);
 	public static Point2D<T> operator +(Vector2D<T> left, Point2D<T> right) => new(left.X + right.X, left.Y + right.Y);
 	public static Vector2D<T> operator -(Vector2D<T> left, Vector2D<T> right) => new(left.X - right.X, left.Y - right.Y);
+	public static Vector2D<T> operator /(Vector2D<T> left, T right) => new(left.X / right, left.Y / right);
 	public static Vector2D<T> operator *(Vector2D<T> left, T right) => new(left.X * right, left.Y * right);
 	public static Vector2D<T> operator *(T left, Vector2D<T> right) => right * left;
 	public static Vector2D<T> operator -(Vector2D<T> value) => new(-value.X, -value.Y);

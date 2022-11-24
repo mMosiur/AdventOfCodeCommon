@@ -32,11 +32,10 @@ public static class EnumeratorExtensions
 	/// (treats whitespace-only string as empty).
 	/// </summary>
 	/// <param name="enumerator">The enumerator to be advanced.</param>
-	/// <param name="message">Optional message to use as error message when the end of the collection has been reached.</param>
 	/// <param name="skipCurrent">Whether to skip the current element in enumerator regardless of its content.</param>
 	/// <returns>Whether the enumerator has reached non-empty line (did not reach end).</returns>
 	/// <exception cref="ArgumentNullException">Thrown when the <paramref name="enumerator"/> is <see langword="null"/>.</exception>
-	public static bool MoveToNextNonEmptyLine(this IEnumerator<string> enumerator, string? message = null, bool skipCurrent = true)
+	public static bool MoveToNextNonEmptyLine(this IEnumerator<string> enumerator, bool skipCurrent = true)
 	{
 		ArgumentNullException.ThrowIfNull(enumerator);
 		if (skipCurrent)

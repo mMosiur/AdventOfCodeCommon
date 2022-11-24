@@ -12,7 +12,7 @@ public readonly partial struct Vector2D<T> :
 	IMultiplyOperators<Vector2D<T>, T, Vector2D<T>>,
 	IUnaryNegationOperators<Vector2D<T>, Vector2D<T>>,
 	IUnaryPlusOperators<Vector2D<T>, Vector2D<T>>
-	where T : INumber<T>
+	where T : unmanaged, INumber<T>
 {
 
 	/// <inheritdoc/>

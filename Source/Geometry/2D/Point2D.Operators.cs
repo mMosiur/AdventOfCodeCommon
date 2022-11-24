@@ -7,6 +7,7 @@ public readonly partial struct Point2D<T> :
 	IEqualityOperators<Point2D<T>, Point2D<T>, bool>,
 	IAdditionOperators<Point2D<T>, Vector2D<T>, Point2D<T>>,
 	ISubtractionOperators<Point2D<T>, Vector2D<T>, Point2D<T>>
+	where T : unmanaged, INumber<T>
 {
 
 	/// <inheritdoc/>

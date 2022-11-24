@@ -8,6 +8,7 @@ namespace AdventOfCode.Common.EnumeratorExtensions;
 /// </summary>
 public static class EnumeratorExtensions
 {
+
 	/// <summary>
 	/// Advances <paramref name="enumerator"/> to the next element of the collection
 	/// and throws an exception if the end of the collection has been reached.
@@ -77,4 +78,5 @@ public static class EnumeratorExtensions
 			enumerator.EnsureMoveNext(message);
 		}
 	}
+
 }

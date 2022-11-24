@@ -8,6 +8,7 @@ namespace AdventOfCode.Common.EnumerableExtensions;
 /// </summary>
 public static class EnumerableExtensions
 {
+
 	/// <summary>
 	/// Projects each element of a sequence into a tuple of that item with its index.
 	/// </summary>
@@ -17,4 +18,5 @@ public static class EnumerableExtensions
 	{
 		return source.Select((item, index) => (item, index));
 	}
+
 }

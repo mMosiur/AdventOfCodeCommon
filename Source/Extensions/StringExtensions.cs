@@ -5,6 +5,7 @@ namespace AdventOfCode.Common.StringExtensions;
 
 public static class StringExtensions
 {
+
 	public static IEnumerable<string> EnumerateLines(this string str)
 	{
 		StringReader reader = new(str);
@@ -15,4 +16,5 @@ public static class StringExtensions
 			line = reader.ReadLine();
 		}
 	}
+
 }

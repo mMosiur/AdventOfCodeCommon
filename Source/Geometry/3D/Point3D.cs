@@ -4,6 +4,10 @@ using System.Numerics;
 
 namespace AdventOfCode.Common.Geometry;
 
+/// <summary>
+/// Represents a point in 3D space
+/// with three <typeparamref name="T"/> values.
+/// </summary>
 public readonly struct Point3D<T> :
 	IEquatable<Point3D<T>>,
 	IEqualityOperators<Point3D<T>, Point3D<T>, bool>,
@@ -11,12 +15,26 @@ public readonly struct Point3D<T> :
 	ISubtractionOperators<Point3D<T>, Vector3D<T>, Point3D<T>>
 	where T : INumber<T>
 {
+
+	/// <summary>The X value of the point.</summary>
 	public required T X { get; init; }
+
+	/// <summary>The Y value of the point.</summary>
 	public required T Y { get; init; }
+
+	/// <summary>The Z value of the point.</summary>
 	public required T Z { get; init; }
 
+	/// <summary>
+	/// Gets the point that is at the origin of the coordinate system.
+	/// </summary>
+	/// <seealso href="https://en.wikipedia.org/wiki/Origin_(mathematics)">Origin</seealso>
 	public static Point3D<T> Origin { get; } = new(T.Zero, T.Zero, T.Zero);
 
+	/// <summary>
+	/// Initializes a point with the specified <paramref name="x"/>,
+	/// <paramref name="y"/> and <paramref name="z"/> values.
+	/// </summary>
 	[SetsRequiredMembers]
 	public Point3D(T x, T y, T z)
 	{
@@ -25,6 +43,10 @@ public readonly struct Point3D<T> :
 		Z = z;
 	}
 
+	/// <summary>
+	/// Deconstruct this point into provided <paramref name="x"/>,
+	/// <paramref name="y"/> and <paramref name="z"/> <see langword="out"/> parameters.
+	/// </summary>
 	public void Deconstruct(out T x, out T y, out T z)
 	{
 		x = X;
@@ -32,28 +54,52 @@ public readonly struct Point3D<T> :
 		z = Z;
 	}
 
+	/// <summary>
+	/// Returns whether the specified point is equal to this point.
+	/// </summary>
+	/// <param name="other">The point being compared to this one.</param>
 	public bool Equals(Point3D<T> other)
 	{
 		return X == other.X && Y == other.Y && Z == other.Z;
 	}
 
 	#region Operators
+
+	/// <inheritdoc/>
 	public static bool operator ==(Point3D<T> left, Point3D<T> right) => left.Equals(right);
+
+	/// <inheritdoc/>
 	public static bool operator !=(Point3D<T> left, Point3D<T> right) => !(left == right);
+
+	/// <inheritdoc/>
 	public static Point3D<T> operator +(Point3D<T> left, Vector3D<T> right) => new(left.X + right.X, left.Y + right.Y, left.Z + right.Z);
+
+	/// <inheritdoc/>
 	public static Point3D<T> operator -(Point3D<T> left, Vector3D<T> right) => new(left.X - right.X, left.Y - right.Y, left.Z - right.Z);
+
 	#endregion
 
+	/// <summary>
+	/// Determines whether the other object is also a <see cref="Point3D{T}"/>
+	/// and is equal to this one.
+	/// </summary>
+	/// <seealso cref="Equals(Point3D{T})"/>
 	public override bool Equals(object? obj)
 	{
 		return obj is Point3D<T> point && Equals(point);
 	}
 
+	/// <summary>
+	/// Returns the hash code of this point.
+	/// </summary>
 	public override int GetHashCode()
 	{
 		return HashCode.Combine(X, Y, Z);
 	}
 
+	/// <summary>
+	/// Returns a string representation of this point.
+	/// </summary>
 	public override string ToString()
 	{
 		return $"Point({X}, {Y}, {Z})";

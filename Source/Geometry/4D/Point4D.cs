@@ -8,11 +8,8 @@ namespace AdventOfCode.Common.Geometry;
 /// Represents a point in 4D space
 /// with four <typeparamref name="T"/> values.
 /// </summary>
-public readonly struct Point4D<T> :
-	IEquatable<Point4D<T>>,
-	IEqualityOperators<Point4D<T>, Point4D<T>, bool>,
-	IAdditionOperators<Point4D<T>, Vector4D<T>, Point4D<T>>,
-	ISubtractionOperators<Point4D<T>, Vector4D<T>, Point4D<T>>
+public readonly partial struct Point4D<T> :
+	IEquatable<Point4D<T>>
 	where T : INumber<T>
 {
 
@@ -68,22 +65,6 @@ public readonly struct Point4D<T> :
 		return X == other.X && Y == other.Y && Z == other.Z && W == other.W;
 	}
 
-	#region Operators
-
-	/// <inheritdoc/>
-	public static bool operator ==(Point4D<T> left, Point4D<T> right) => left.Equals(right);
-
-	/// <inheritdoc/>
-	public static bool operator !=(Point4D<T> left, Point4D<T> right) => !(left == right);
-
-	/// <inheritdoc/>
-	public static Point4D<T> operator +(Point4D<T> left, Vector4D<T> right) => new(left.X + right.X, left.Y + right.Y, left.Z + right.Z, left.W + right.W);
-
-	/// <inheritdoc/>
-	public static Point4D<T> operator -(Point4D<T> left, Vector4D<T> right) => new(left.X - right.X, left.Y - right.Y, left.Z - right.Z, left.W - right.W);
-
-	#endregion
-
 	/// <summary>
 	/// Determines whether the other object is also a <see cref="Point4D{T}"/>
 	/// and is equal to this one.
@@ -109,4 +90,5 @@ public readonly struct Point4D<T> :
 	{
 		return $"Point({X}, {Y}, {Z}, {W})";
 	}
+
 }

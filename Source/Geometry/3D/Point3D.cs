@@ -83,7 +83,7 @@ public readonly partial struct Point3D<T> :
 	/// </summary>
 	public override string ToString()
 	{
-		return $"Point({X}, {Y}, {Z})";
+		return $"({X}, {Y}, {Z})";
 	}
 
 }

@@ -105,7 +105,7 @@ public readonly partial struct Vector3D<T> :
 	/// </summary>
 	public override string ToString()
 	{
-		return $"Vector[{X}, {Y}, {Z}]";
+		return $"[{X}, {Y}, {Z}]";
 	}
 
 }

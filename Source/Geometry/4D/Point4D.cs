@@ -88,7 +88,7 @@ public readonly partial struct Point4D<T> :
 	/// </summary>
 	public override string ToString()
 	{
-		return $"Point({X}, {Y}, {Z}, {W})";
+		return $"({X}, {Y}, {Z}, {W})";
 	}
 
 }

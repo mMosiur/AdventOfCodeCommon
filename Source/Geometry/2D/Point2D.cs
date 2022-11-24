@@ -78,7 +78,7 @@ public readonly partial struct Point2D<T> :
 	/// </summary>
 	public override string ToString()
 	{
-		return $"Point({X}, {Y})";
+		return $"({X}, {Y})";
 	}
 
 }

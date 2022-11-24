@@ -94,7 +94,7 @@ public readonly partial struct Vector2D<T> :
 	/// </summary>
 	public override string ToString()
 	{
-		return $"Vector[{X}, {Y}]";
+		return $"[{X}, {Y}]";
 	}
 
 }

@@ -5,7 +5,7 @@ namespace AdventOfCode.Common.Tests.Geometry;
 
 public class Point2DBasicTests
 {
-	private static void TestTPointCreationAndBasicBehavior<T>() where T : INumber<T>
+	private static void TestTPointCreationAndBasicBehavior<T>() where T : unmanaged, INumber<T>
 	{
 		T one = T.One;
 		T two = one + one;

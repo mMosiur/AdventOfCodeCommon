@@ -7,7 +7,7 @@ public readonly partial struct Point4D<T> :
 	IEqualityOperators<Point4D<T>, Point4D<T>, bool>,
 	IAdditionOperators<Point4D<T>, Vector4D<T>, Point4D<T>>,
 	ISubtractionOperators<Point4D<T>, Vector4D<T>, Point4D<T>>
-	where T : INumber<T>
+	where T : unmanaged, INumber<T>
 {
 
 	/// <inheritdoc/>

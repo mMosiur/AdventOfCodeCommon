@@ -11,7 +11,7 @@ namespace AdventOfCode.Common.Geometry;
 public readonly partial struct Vector3D<T> :
 	IEquatable<Vector3D<T>>,
 	IAdditiveIdentity<Vector3D<T>, Vector3D<T>>
-	where T : INumber<T>
+	where T : unmanaged, INumber<T>
 {
 
 	/// <summary>The X value of the vector.</summary>

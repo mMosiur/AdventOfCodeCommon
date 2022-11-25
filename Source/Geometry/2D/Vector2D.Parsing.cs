@@ -1,8 +1,6 @@
 using System;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
-using AdventOfCode.Common.SpanExtensions;
 
 namespace AdventOfCode.Common.Geometry;
 
@@ -12,6 +10,18 @@ public readonly partial struct Vector2D<T>
 	where T : unmanaged, INumber<T>
 {
 
+	/// <summary>The count of values used in parsing.</summary>
+	private const int _parsingValueCount = 2;
+
+	/// <summary>The separator <see cref="char"/> used in parsing.</summary>
+	private const char _parsingSeparatorChar = ',';
+
+	/// <summary>The opening bracket <see cref="char"/> used in parsing.</summary>
+	private const char _parsingOpeningBracketChar = '[';
+
+	/// <summary>The closing bracket <see cref="char"/> used in parsing.</summary>
+	private const char _parsingClosingBracketChar = ']';
+
 	/// <summary>
 	/// Parses specified string into a <see cref="Vector2D{T}"/>.
 	/// </summary>
@@ -19,7 +29,6 @@ public readonly partial struct Vector2D<T>
 	/// <param name="provider">An object that provides culture-specific formatting information about <paramref name="s"/>.</param>
 	/// <exception cref="ArgumentNullException"><paramref name="s"/> is <see langword="null"/>.</exception>
 	/// <exception cref="FormatException"><paramref name="s"/> is not in the correct format.</exception>
-	/// <exception cref="OverflowException"><paramref name="s"/> is not representable by <typeparamref name="T"/>.</exception>
 	/// <returns>A new <see cref="Vector2D{T}"/> parsed from <paramref name="s"/>.</returns>
 	/// <remarks>
 	/// The format of <paramref name="s"/> can be either
@@ -28,7 +37,7 @@ public readonly partial struct Vector2D<T>
 	/// <item><c>X, Y</c></item>
 	/// </list>
 	/// with whitespace between elements ignored where <c>X</c> and <c>Y</c> are
-	/// the string representations of the <see cref="X"/> and <see cref="X"/> values.
+	/// the string representations of the <see cref="X"/> and <see cref="Y"/> values.
 	/// </remarks>
 	public static Vector2D<T> Parse(string s, IFormatProvider? provider = null)
 	{
@@ -42,7 +51,6 @@ public readonly partial struct Vector2D<T>
 	/// <param name="s">The span of characters to parse.</param>
 	/// <param name="provider">An object that provides culture-specific formatting information about <paramref name="s"/>.</param>
 	/// <exception cref="FormatException"><paramref name="s"/> is not in the correct format.</exception>
-	/// <exception cref="OverflowException"><paramref name="s"/> is not representable by <typeparamref name="T"/>.</exception>
 	/// <returns>A new <see cref="Vector2D{T}"/> parsed from <paramref name="s"/>.</returns>
 	/// <remarks>
 	/// The format of <paramref name="s"/> can be either
@@ -51,52 +59,25 @@ public readonly partial struct Vector2D<T>
 	/// <item><c>X, Y</c></item>
 	/// </list>
 	/// with whitespace between elements ignored where <c>X</c> and <c>Y</c> are
-	/// the string representations of the <see cref="X"/> and <see cref="X"/> values.
+	/// the string representations of the <see cref="X"/> and <see cref="Y"/> values.
 	/// </remarks>
 	public static Vector2D<T> Parse(ReadOnlySpan<char> s, IFormatProvider? provider = null)
 	{
-		const int CoordCount = 2;
-		const char Separator = ',';
-		const char OpenChar = '[';
-		const char CloseChar = ']';
+		Span<T> values = stackalloc T[_parsingValueCount];
 		try
 		{
-			ReadOnlySpan<char> trimmedSpan = s.Trim();
-			if (trimmedSpan.IsEmpty)
-			{
-				throw new FormatException("The input text is empty.");
-			}
-			if (trimmedSpan[0] == OpenChar)
-			{
-				if (trimmedSpan[^1] != CloseChar)
-				{
-					throw new FormatException($"The opening '{OpenChar}' did not have a closing '{CloseChar}'.");
-				}
-				// We know that the the span has at least two chars as otherwise we would step into prev if.
-				trimmedSpan = trimmedSpan[1..^1];
-			}
-			Span<T> values = stackalloc T[CoordCount];
-			SpanSplit<char> splitter = trimmedSpan.Split(Separator);
-			int partCount = 0;
-			foreach (ReadOnlySpan<char> part in splitter)
-			{
-				if (partCount >= CoordCount)
-				{
-					throw new FormatException($"Too many coordinates. Expected {CoordCount}, found at least {partCount}.");
-				}
-				values[partCount++] = T.Parse(part, provider);
-			}
-			if (partCount < CoordCount)
-			{
-				throw new FormatException($"Too few coordinates. Expected {CoordCount}, found {partCount}.");
-			}
-			return new Vector2D<T>(values[0], values[1]);
+			Helpers.TupleParsing.ParseValueTupleIntoSpan(
+				s,
+				provider,
+				result: values,
+				new(_parsingValueCount, _parsingSeparatorChar, _parsingOpeningBracketChar, _parsingClosingBracketChar)
+			);
 		}
-		catch (Exception e)
+		catch (FormatException e)
 		{
-			Debug.Assert(e is FormatException or OverflowException);
-			throw new FormatException($"Could not parse \"{s}\" as a vector.", e);
+			throw new FormatException($"Could not parse Vector2D from \"{s}\".", e);
 		}
+		return new(values[0], values[1]);
 	}
 
 	/// <summary>
@@ -112,7 +93,7 @@ public readonly partial struct Vector2D<T>
 	/// <item><c>X, Y</c></item>
 	/// </list>
 	/// with whitespace between elements ignored where <c>X</c> and <c>Y</c> are
-	/// the string representations of the <see cref="X"/> and <see cref="X"/> values.
+	/// the string representations of the <see cref="X"/> and <see cref="Y"/> values.
 	/// </remarks>
 	public static bool TryParse([NotNullWhen(true)] string? s, [MaybeNullWhen(false)] out Vector2D<T> result)
 		=> TryParse(s, null, out result);
@@ -131,7 +112,7 @@ public readonly partial struct Vector2D<T>
 	/// <item><c>X, Y</c></item>
 	/// </list>
 	/// with whitespace between elements ignored where <c>X</c> and <c>Y</c> are
-	/// the string representations of the <see cref="X"/> and <see cref="X"/> values.
+	/// the string representations of the <see cref="X"/> and <see cref="Y"/> values.
 	/// </remarks>
 	public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, [MaybeNullWhen(false)] out Vector2D<T> result)
 	{
@@ -152,7 +133,7 @@ public readonly partial struct Vector2D<T>
 	/// <item><c>X, Y</c></item>
 	/// </list>
 	/// with whitespace between elements ignored where <c>X</c> and <c>Y</c> are
-	/// the string representations of the <see cref="X"/> and <see cref="X"/> values.
+	/// the string representations of the <see cref="X"/> and <see cref="Y"/> values.
 	/// </remarks>
 	public static bool TryParse([NotNullWhen(true)] ReadOnlySpan<char> s, [MaybeNullWhen(false)] out Vector2D<T> result)
 		=> TryParse(s, null, out result);
@@ -171,51 +152,23 @@ public readonly partial struct Vector2D<T>
 	/// <item><c>X, Y</c></item>
 	/// </list>
 	/// with whitespace between elements ignored where <c>X</c> and <c>Y</c> are
-	/// the string representations of the <see cref="X"/> and <see cref="X"/> values.
+	/// the string representations of the <see cref="X"/> and <see cref="Y"/> values.
 	/// </remarks>
 	public static bool TryParse([NotNullWhen(true)] ReadOnlySpan<char> s, IFormatProvider? provider, [MaybeNullWhen(false)] out Vector2D<T> result)
 	{
-		const int CoordCount = 2;
-		const char Separator = ',';
-		const char OpenChar = '[';
-		const char CloseChar = ']';
 		result = default;
-		ReadOnlySpan<char> trimmedSpan = s.Trim();
-		if (trimmedSpan.IsEmpty)
+		Span<T> values = stackalloc T[_parsingValueCount];
+		bool parsed = Helpers.TupleParsing.TryParseValueListIntoSpan(
+			s,
+			provider,
+			in values,
+			new(_parsingValueCount, _parsingSeparatorChar, _parsingOpeningBracketChar, _parsingClosingBracketChar)
+		);
+		if (parsed)
 		{
-			throw new FormatException("The input text is empty.");
+			result = new(values[0], values[1]);
 		}
-		if (trimmedSpan[0] == OpenChar)
-		{
-			if (trimmedSpan[^1] != CloseChar)
-			{
-				throw new FormatException($"The opening '{OpenChar}' did not have a closing '{CloseChar}'.");
-			}
-			// We know that the the span has at least two chars as otherwise we would step into prev if.
-			trimmedSpan = trimmedSpan[1..^1];
-		}
-		Span<T> values = stackalloc T[CoordCount];
-		SpanSplit<char> splitter = trimmedSpan.Split(Separator);
-		int partCount = 0;
-		foreach (ReadOnlySpan<char> part in splitter)
-		{
-			if (partCount >= CoordCount)
-			{
-				return false;
-			}
-			if (!T.TryParse(part, provider, out T parsed))
-			{
-				return false;
-			}
-			values[partCount++] = parsed;
-		}
-		if (partCount < CoordCount)
-		{
-			return false;
-		}
-		result = new Vector2D<T>(values[0], values[1]);
-		return true;
+		return parsed;
 	}
 
 }
-

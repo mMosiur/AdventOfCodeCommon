@@ -7,7 +7,7 @@ public readonly partial struct Point3D<T> :
 	IEqualityOperators<Point3D<T>, Point3D<T>, bool>,
 	IAdditionOperators<Point3D<T>, Vector3D<T>, Point3D<T>>,
 	ISubtractionOperators<Point3D<T>, Vector3D<T>, Point3D<T>>
-	where T : INumber<T>
+	where T : unmanaged, INumber<T>
 {
 
 	/// <inheritdoc/>

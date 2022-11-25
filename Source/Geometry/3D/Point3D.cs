@@ -10,7 +10,7 @@ namespace AdventOfCode.Common.Geometry;
 /// </summary>
 public readonly partial struct Point3D<T> :
 	IEquatable<Point3D<T>>
-	where T : INumber<T>
+	where T : unmanaged, INumber<T>
 {
 
 	/// <summary>The X value of the point.</summary>

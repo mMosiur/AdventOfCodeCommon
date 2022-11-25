@@ -12,7 +12,7 @@ public readonly partial struct Vector3D<T> :
 	IMultiplyOperators<Vector3D<T>, T, Vector3D<T>>,
 	IUnaryNegationOperators<Vector3D<T>, Vector3D<T>>,
 	IUnaryPlusOperators<Vector3D<T>, Vector3D<T>>
-	where T : INumber<T>
+	where T : unmanaged, INumber<T>
 {
 
 	/// <inheritdoc/>

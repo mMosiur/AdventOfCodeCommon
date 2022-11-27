@@ -45,6 +45,16 @@ public readonly partial struct Point4D<T> :
 	}
 
 	/// <summary>
+	/// Constructs a displacement vector from this point to the specified <paramref name="destination"/> point.
+	/// </summary>
+	/// <param name="destination">The destination point of the displacement vector.</param>
+	/// <seealso href="https://en.wikipedia.org/wiki/Displacement_(vector)">Displacement vector</seealso>
+	public Vector4D<T> VectorTo(Point4D<T> destination)
+	{
+		return new Vector4D<T>(this, destination);
+	}
+
+	/// <summary>
 	/// Deconstruct this point into provided <paramref name="x"/>, <paramref name="y"/>,
 	/// <paramref name="z"/> and <paramref name="w"/> <see langword="out"/> parameters.
 	/// </summary>

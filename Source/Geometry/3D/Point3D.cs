@@ -41,6 +41,16 @@ public readonly partial struct Point3D<T> :
 	}
 
 	/// <summary>
+	/// Constructs a displacement vector from this point to the specified <paramref name="destination"/> point.
+	/// </summary>
+	/// <param name="destination">The destination point of the displacement vector.</param>
+	/// <seealso href="https://en.wikipedia.org/wiki/Displacement_(vector)">Displacement vector</seealso>
+	public Vector3D<T> VectorTo(Point3D<T> destination)
+	{
+		return new Vector3D<T>(this, destination);
+	}
+
+	/// <summary>
 	/// Deconstruct this point into provided <paramref name="x"/>,
 	/// <paramref name="y"/> and <paramref name="z"/> <see langword="out"/> parameters.
 	/// </summary>

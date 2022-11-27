@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
+using System.Threading.Tasks;
 
 namespace AdventOfCode.Common.Geometry;
 
@@ -34,6 +35,16 @@ public readonly partial struct Point2D<T> :
 	{
 		X = x;
 		Y = y;
+	}
+
+	/// <summary>
+	/// Constructs a displacement vector from this point to the specified <paramref name="destination"/> point.
+	/// </summary>
+	/// <param name="destination">The destination point of the displacement vector.</param>
+	/// <seealso href="https://en.wikipedia.org/wiki/Displacement_(vector)">Displacement vector</seealso>
+	public Vector2D<T> VectorTo(Point2D<T> destination)
+	{
+		return new Vector2D<T>(this, destination);
 	}
 
 	/// <summary>

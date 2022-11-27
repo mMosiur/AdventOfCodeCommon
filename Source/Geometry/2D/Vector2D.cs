@@ -45,11 +45,36 @@ public readonly partial struct Vector2D<T> :
 	/// Initializes a vector with the specified <paramref name="x"/>
 	/// and <paramref name="y"/> values.
 	/// </summary>
+	/// <param name="x">The <c>X</c> value of the vector.</param>
+	/// <param name="y">The <c>Y</c> value of the vector.</param>
 	[SetsRequiredMembers]
 	public Vector2D(T x, T y)
 	{
 		X = x;
 		Y = y;
+	}
+
+	/// <summary>
+	/// Initializes a vector as a displacement vector of the origin point <paramref name="from"/>
+	/// and destination point <paramref name="to"/>.
+	/// </summary>
+	/// <param name="from">The initial point of the vector to be constructed.</param>
+	/// <param name="to">The final point of the vector to be constructed.</param>
+	/// <seealso href="https://en.wikipedia.org/wiki/Displacement_(vector)">Displacement (vector)</seealso>
+	[SetsRequiredMembers]
+	public Vector2D(Point2D<T> from, Point2D<T> to)
+		: this(to.X - from.X, to.Y - from.Y)
+	{
+	}
+
+	/// <summary>
+	/// Initializes a vector as a copy of the specified <paramref name="vector"/>.
+	/// </summary>
+	/// <param name="vector">The vector to be copied.</param>
+	[SetsRequiredMembers]
+	public Vector2D(Vector2D<T> vector)
+		: this(vector.X, vector.Y)
+	{
 	}
 
 	/// <summary>

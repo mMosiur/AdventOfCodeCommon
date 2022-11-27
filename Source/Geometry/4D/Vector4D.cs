@@ -63,6 +63,10 @@ public readonly partial struct Vector4D<T> :
 	/// Initializes a vector with the specified <paramref name="x"/>, <paramref name="y"/>,
 	/// <paramref name="z"/> and <paramref name="w"/> values.
 	/// </summary>
+	/// <param name="x">The <c>X</c> value of the vector.</param>
+	/// <param name="y">The <c>Y</c> value of the vector.</param>
+	/// <param name="z">The <c>Z</c> value of the vector.</param>
+	/// <param name="w">The <c>W</c> value of the vector.</param>
 	[SetsRequiredMembers]
 	public Vector4D(T x, T y, T z, T w)
 	{
@@ -70,6 +74,29 @@ public readonly partial struct Vector4D<T> :
 		Y = y;
 		Z = z;
 		W = w;
+	}
+
+	/// <summary>
+	/// Initializes a vector as a displacement vector of the origin point <paramref name="from"/>
+	/// and destination point <paramref name="to"/>.
+	/// </summary>
+	/// <param name="from">The initial point of the vector to be constructed.</param>
+	/// <param name="to">The final point of the vector to be constructed.</param>
+	/// <seealso href="https://en.wikipedia.org/wiki/Displacement_(vector)">Displacement (vector)</seealso>
+	[SetsRequiredMembers]
+	public Vector4D(Point4D<T> from, Point4D<T> to)
+		: this(to.X - from.X, to.Y - from.Y, to.Z - from.Z, to.W - from.W)
+	{
+	}
+
+	/// <summary>
+	/// Initializes a vector as a copy of the specified <paramref name="vector"/>.
+	/// </summary>
+	/// <param name="vector">The vector to be copied.</param>
+	[SetsRequiredMembers]
+	public Vector4D(Vector4D<T> vector)
+		: this(vector.X, vector.Y, vector.Z, vector.W)
+	{
 	}
 
 	/// <summary>

@@ -76,6 +76,13 @@ internal static class TupleParsing
 	public static void ParseValueTupleIntoSpan<T>(ReadOnlySpan<char> s, IFormatProvider? provider, in Span<T> result, TupleParsingOptions options)
 		where T : unmanaged, ISpanParsable<T>
 	{
+		if (options.Count != result.Length)
+		{
+			throw new ArgumentException(
+				$"The length of the result span ({result.Length}) is not equal to the count of values to be parsed ({options.Count}).",
+				nameof(result)
+			);
+		}
 		try
 		{
 			ReadOnlySpan<char> trimmedS = s.Trim();
@@ -98,7 +105,6 @@ internal static class TupleParsing
 			{
 				throw new FormatException($"Missing required brackets.");
 			}
-			Span<T> values = stackalloc T[result.Length];
 			SpanSplit<char> splitter = trimmedS.Split(options.Separator);
 			int partCount = 0;
 			foreach (ReadOnlySpan<char> part in splitter)
@@ -107,7 +113,7 @@ internal static class TupleParsing
 				{
 					throw new FormatException($"Too many values. Expected {result.Length}, found at least {partCount}.");
 				}
-				values[partCount++] = T.Parse(part, provider);
+				result[partCount++] = T.Parse(part, provider);
 			}
 			if (partCount < result.Length)
 			{
@@ -139,6 +145,13 @@ internal static class TupleParsing
 	public static bool TryParseValueListIntoSpan<T>(ReadOnlySpan<char> s, IFormatProvider? provider, in Span<T> result, TupleParsingOptions options)
 		where T : unmanaged, ISpanParsable<T>
 	{
+		if (options.Count != result.Length)
+		{
+			throw new ArgumentException(
+				$"The length of the result span ({result.Length}) is not equal to the count of values to be parsed ({options.Count}).",
+				nameof(result)
+			);
+		}
 		s = s.Trim();
 		if (s.IsEmpty)
 		{
@@ -159,7 +172,6 @@ internal static class TupleParsing
 		{
 			return false;
 		}
-		Span<T> values = stackalloc T[result.Length];
 		SpanSplit<char> splitter = s.Split(options.Separator);
 		int partCount = 0;
 		foreach (ReadOnlySpan<char> part in splitter)
@@ -168,7 +180,7 @@ internal static class TupleParsing
 			{
 				return false;
 			}
-			values[partCount++] = T.Parse(part, provider);
+			result[partCount++] = T.Parse(part, provider);
 		}
 		if (partCount < result.Length)
 		{

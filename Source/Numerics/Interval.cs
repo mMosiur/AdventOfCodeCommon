@@ -21,7 +21,7 @@ public readonly struct Interval<T>
 	public T End { get; }
 
 	/// <summary>The count of integer values included in the interval.</summary>
-	public int Count => int.CreateChecked(End - Start + T.One);
+	public T Count => End - Start + T.One;
 
 	/// <summary>
 	/// Initializes interval with the specified start and end values.

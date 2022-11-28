@@ -3,9 +3,9 @@ using System.Numerics;
 namespace AdventOfCode.Common.Geometry;
 
 /// <summary>
-/// Provides geometrical math functions.
+/// Provides constants and static methods for common geometric mathematical functions.
 /// </summary>
-public static class Math
+public static class MathG
 {
 
 	/// <summary>

@@ -5,7 +5,7 @@ namespace AdventOfCode.Common.Tests.Geometry;
 
 public class Vector2DBasicTests
 {
-	private static void TestTVectorCreationAndBasicBehavior<T>() where T : INumber<T>
+	private static void TestTVectorCreationAndBasicBehavior<T>() where T : unmanaged, INumber<T>
 	{
 		T one = T.One;
 		T two = one + one;

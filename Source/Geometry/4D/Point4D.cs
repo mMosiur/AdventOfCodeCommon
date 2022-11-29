@@ -5,11 +5,11 @@ using System.Numerics;
 namespace AdventOfCode.Common.Geometry;
 
 /// <summary>
-/// Represents a point in 3D space
-/// with three <typeparamref name="T"/> values.
+/// Represents a point in 4D space
+/// with four <typeparamref name="T"/> values.
 /// </summary>
-public readonly partial struct Point3D<T> :
-	IEquatable<Point3D<T>>
+public readonly partial struct Point4D<T> :
+	IEquatable<Point4D<T>>
 	where T : unmanaged, INumber<T>
 {
 
@@ -22,22 +22,26 @@ public readonly partial struct Point3D<T> :
 	/// <summary>The Z value of the point.</summary>
 	public required T Z { get; init; }
 
+	/// <summary>The W value of the point.</summary>
+	public required T W { get; init; }
+
 	/// <summary>
 	/// Gets the point that is at the origin of the coordinate system.
 	/// </summary>
 	/// <seealso href="https://en.wikipedia.org/wiki/Origin_(mathematics)">Origin</seealso>
-	public static Point3D<T> Origin { get; } = new(T.Zero, T.Zero, T.Zero);
+	public static Point4D<T> Origin { get; } = new(T.Zero, T.Zero, T.Zero, T.Zero);
 
 	/// <summary>
-	/// Initializes a point with the specified <paramref name="x"/>,
-	/// <paramref name="y"/> and <paramref name="z"/> values.
+	/// Initializes a point with the specified <paramref name="x"/>, <paramref name="y"/>,
+	/// <paramref name="z"/> and <paramref name="w"/> values.
 	/// </summary>
 	[SetsRequiredMembers]
-	public Point3D(T x, T y, T z)
+	public Point4D(T x, T y, T z, T w)
 	{
 		X = x;
 		Y = y;
 		Z = z;
+		W = w;
 	}
 
 	/// <summary>
@@ -45,39 +49,40 @@ public readonly partial struct Point3D<T> :
 	/// </summary>
 	/// <param name="destination">The destination point of the displacement vector.</param>
 	/// <seealso href="https://en.wikipedia.org/wiki/Displacement_(vector)">Displacement vector</seealso>
-	public Vector3D<T> VectorTo(Point3D<T> destination)
+	public Vector4D<T> VectorTo(Point4D<T> destination)
 	{
-		return new Vector3D<T>(this, destination);
+		return new Vector4D<T>(this, destination);
 	}
 
 	/// <summary>
-	/// Deconstruct this point into provided <paramref name="x"/>,
-	/// <paramref name="y"/> and <paramref name="z"/> <see langword="out"/> parameters.
+	/// Deconstruct this point into provided <paramref name="x"/>, <paramref name="y"/>,
+	/// <paramref name="z"/> and <paramref name="w"/> <see langword="out"/> parameters.
 	/// </summary>
-	public void Deconstruct(out T x, out T y, out T z)
+	public void Deconstruct(out T x, out T y, out T z, out T w)
 	{
 		x = X;
 		y = Y;
 		z = Z;
+		w = W;
 	}
 
 	/// <summary>
 	/// Returns whether the specified point is equal to this point.
 	/// </summary>
 	/// <param name="other">The point being compared to this one.</param>
-	public bool Equals(Point3D<T> other)
+	public bool Equals(Point4D<T> other)
 	{
-		return X == other.X && Y == other.Y && Z == other.Z;
+		return X == other.X && Y == other.Y && Z == other.Z && W == other.W;
 	}
 
 	/// <summary>
-	/// Determines whether the other object is also a <see cref="Point3D{T}"/>
+	/// Determines whether the other object is also a <see cref="Point4D{T}"/>
 	/// and is equal to this one.
 	/// </summary>
-	/// <seealso cref="Equals(Point3D{T})"/>
+	/// <seealso cref="Equals(Point4D{T})"/>
 	public override bool Equals(object? obj)
 	{
-		return obj is Point3D<T> point && Equals(point);
+		return obj is Point4D<T> point && Equals(point);
 	}
 
 	/// <summary>
@@ -85,7 +90,7 @@ public readonly partial struct Point3D<T> :
 	/// </summary>
 	public override int GetHashCode()
 	{
-		return HashCode.Combine(X, Y, Z);
+		return HashCode.Combine(X, Y, Z, W);
 	}
 
 	/// <summary>
@@ -93,7 +98,7 @@ public readonly partial struct Point3D<T> :
 	/// </summary>
 	public override string ToString()
 	{
-		return $"({X}, {Y}, {Z})";
+		return $"({X}, {Y}, {Z}, {W})";
 	}
 
 }

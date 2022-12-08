@@ -9,7 +9,7 @@ namespace AdventOfCode.Common.Numerics;
 /// Represents an interval (range) of integers.
 /// </summary>
 /// <seealso href="https://en.wikipedia.org/wiki/Interval_(mathematics)">Interval (mathematics)</seealso>
-public readonly struct Interval<T>
+public readonly partial struct Interval<T>
 	: IEnumerable<T>, IEquatable<Interval<T>>
 	where T : unmanaged, IBinaryInteger<T>
 {

@@ -106,7 +106,7 @@ public readonly partial struct Interval<T>
 	/// <seealso href="https://en.wikipedia.org/wiki/Intersection_(set_theory)">Intersection</seealso>
 	public bool Overlaps(Interval<T> interval)
 	{
-		return interval.Contains(Start) || interval.Contains(End);
+		return interval.Start <= End && Start <= interval.End;
 	}
 
 	/// <summary>

@@ -20,7 +20,7 @@ public static class SpanEnumeratorExtensions
 	/// <param name="enumerator">The enumerator to be advanced.</param>
 	/// <param name="message">Optional message to use as error message when the end of the collection has been reached.</param>
 	/// <exception cref="InvalidOperationException">Throws when the end of the collection has been reached.</exception>
-	public static void EnsureMoveNext(this SpanLineEnumerator enumerator, string? message = null)
+	public static void EnsureMoveNext(this ref SpanLineEnumerator enumerator, string? message = null)
 	{
 		if (!enumerator.MoveNext())
 		{
@@ -39,7 +39,7 @@ public static class SpanEnumeratorExtensions
 	/// <param name="enumerator">The enumerator to be advanced.</param>
 	/// <param name="message">Optional message to use as error message when the end of the collection has been reached.</param>
 	/// <exception cref="InvalidOperationException">Throws when the end of the collection has been reached.</exception>
-	public static void EnsureMoveNext(this SpanRuneEnumerator enumerator, string? message = null)
+	public static void EnsureMoveNext(this ref SpanRuneEnumerator enumerator, string? message = null)
 	{
 		if (!enumerator.MoveNext())
 		{
@@ -58,7 +58,7 @@ public static class SpanEnumeratorExtensions
 	/// <param name="enumerator">The enumerator to be advanced.</param>
 	/// <param name="message">Optional message to use as error message when the end of the collection has been reached.</param>
 	/// <exception cref="InvalidOperationException">Throws when the end of the collection has been reached.</exception>
-	public static void EnsureMoveNext<T>(this ReadOnlySpan<T>.Enumerator enumerator, string? message = null)
+	public static void EnsureMoveNext<T>(this ref ReadOnlySpan<T>.Enumerator enumerator, string? message = null)
 	{
 		if (!enumerator.MoveNext())
 		{
@@ -77,7 +77,7 @@ public static class SpanEnumeratorExtensions
 	/// <param name="enumerator">The enumerator to be advanced.</param>
 	/// <param name="message">Optional message to use as error message when the end of the collection has been reached.</param>
 	/// <exception cref="InvalidOperationException">Throws when the end of the collection has been reached.</exception>
-	public static void EnsureMoveNext<T>(this Span<T>.Enumerator enumerator, string? message = null)
+	public static void EnsureMoveNext<T>(this ref Span<T>.Enumerator enumerator, string? message = null)
 	{
 		if (!enumerator.MoveNext())
 		{
@@ -96,7 +96,7 @@ public static class SpanEnumeratorExtensions
 	/// <param name="enumerator">The enumerator to be advanced.</param>
 	/// <param name="message">Optional message to use as error message when the end of the collection has been reached.</param>
 	/// <exception cref="InvalidOperationException">Throws when the end of the collection has been reached.</exception>
-	public static void EnsureMoveNext<T>(this SpanSplit<T>.Enumerator enumerator, string? message = null) where T : IEquatable<T>
+	public static void EnsureMoveNext<T>(this ref SpanSplit<T>.Enumerator enumerator, string? message = null) where T : IEquatable<T>
 	{
 		if (!enumerator.MoveNext())
 		{
@@ -112,7 +112,7 @@ public static class SpanEnumeratorExtensions
 	/// <param name="enumerator">The enumerator to be advanced.</param>
 	/// <param name="skipCurrent">Whether to skip the current element in enumerator regardless of its content.</param>
 	/// <returns>Whether the enumerator has reached non-empty line (did not reach end).</returns>
-	public static bool MoveToNextNonEmptyLine(this SpanLineEnumerator enumerator, bool skipCurrent = true)
+	public static bool MoveToNextNonEmptyLine(this ref SpanLineEnumerator enumerator, bool skipCurrent = true)
 	{
 		if (skipCurrent)
 		{
@@ -141,7 +141,7 @@ public static class SpanEnumeratorExtensions
 	/// <param name="message">Optional message to use as error message when the end of the collection has been reached.</param>
 	/// <param name="skipCurrent">Whether to skip the current element in enumerator regardless of its content.</param>
 	/// <exception cref="InvalidOperationException">Throws when the end of the collection has been reached.</exception>
-	public static void EnsureMoveToNextNonEmptyLine(this SpanLineEnumerator enumerator, string? message = null, bool skipCurrent = true)
+	public static void EnsureMoveToNextNonEmptyLine(this ref SpanLineEnumerator enumerator, string? message = null, bool skipCurrent = true)
 	{
 		if (skipCurrent)
 		{
@@ -161,7 +161,7 @@ public static class SpanEnumeratorExtensions
 	/// <param name="enumerator">The enumerator to be advanced.</param>
 	/// <param name="skipCurrent">Whether to skip the current element in enumerator regardless of its content.</param>
 	/// <returns>Whether the enumerator has reached non-empty line (did not reach end).</returns>
-	public static bool MoveToNextNonEmptyPart(this SpanSplit<char>.Enumerator enumerator, bool skipCurrent = true)
+	public static bool MoveToNextNonEmptyPart(this ref SpanSplit<char>.Enumerator enumerator, bool skipCurrent = true)
 	{
 		if (skipCurrent)
 		{
@@ -190,7 +190,7 @@ public static class SpanEnumeratorExtensions
 	/// <param name="message">Optional message to use as error message when the end of the collection has been reached.</param>
 	/// <param name="skipCurrent">Whether to skip the current element in enumerator regardless of its content.</param>
 	/// <exception cref="InvalidOperationException">Throws when the end of the collection has been reached.</exception>
-	public static void EnsureMoveToNextNonEmptyPart(this SpanSplit<char>.Enumerator enumerator, string? message = null, bool skipCurrent = true)
+	public static void EnsureMoveToNextNonEmptyPart(this ref SpanSplit<char>.Enumerator enumerator, string? message = null, bool skipCurrent = true)
 	{
 		if (skipCurrent)
 		{

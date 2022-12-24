@@ -40,6 +40,19 @@ public readonly struct Rectangle<T>
 	}
 
 	/// <summary>
+	/// Initializes rectangle with ranges built with specified start and end values.
+	/// </summary>
+	/// <param name="xStart">The start of the x value range.</param>
+	/// <param name="xEnd">The end of the x value range.</param>
+	/// <param name="yStart">The start of the y value range.</param>
+	/// <param name="yEnd">The end of the y value range.</param>
+	[SetsRequiredMembers]
+	public Rectangle(T xStart, T xEnd, T yStart, T yEnd)
+		: this(new(xStart, xEnd), new(yStart, yEnd))
+	{
+	}
+
+	/// <summary>
 	/// Initializes rectangle as a copy of the other specified <paramref name="rectangle"/>.
 	/// </summary>
 	/// <param name="rectangle">The rectangle to be used as a base for copy initialization.</param>

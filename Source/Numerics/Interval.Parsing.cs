@@ -10,7 +10,7 @@ public readonly partial struct Interval<T>
 {
 
 	/// <summary>The separator between start and end values in the interval.</summary>
-	private const string _parsingSeparator = "..";
+	private const string ParsingSeparator = "..";
 
 	/// <summary>
 	/// Parses specified string into a <see cref="Interval{T}"/> using <c>..</c> as a default start/end separator.
@@ -23,7 +23,7 @@ public readonly partial struct Interval<T>
 	public static Interval<T> Parse(string s, IFormatProvider? provider = null)
 	{
 		ArgumentNullException.ThrowIfNull(s);
-		return Parse(s.AsSpan(), _parsingSeparator, provider);
+		return Parse(s.AsSpan(), ParsingSeparator, provider);
 	}
 
 	/// <summary>
@@ -50,7 +50,7 @@ public readonly partial struct Interval<T>
 	/// <exception cref="FormatException"><paramref name="s"/> is not in the correct format.</exception>
 	/// <returns>A new <see cref="Interval{T}"/> parsed from <paramref name="s"/>.</returns>
 	public static Interval<T> Parse(ReadOnlySpan<char> s, IFormatProvider? provider = null)
-		=> Parse(s, _parsingSeparator, provider);
+		=> Parse(s, ParsingSeparator, provider);
 
 	/// <summary>
 	/// Parses specified span of characters into a <see cref="Interval{T}"/>.
@@ -88,7 +88,7 @@ public readonly partial struct Interval<T>
 	/// <param name="result">The result of parsing <paramref name="s"/>.</param>
 	/// <returns><see langword="true"/> if <paramref name="s"/> was successfully parsed; otherwise, <see langword="false"/>.</returns>
 	public static bool TryParse([NotNullWhen(true)] string? s, out Interval<T> result)
-		=> TryParse(s, _parsingSeparator, null, out result);
+		=> TryParse(s, ParsingSeparator, null, out result);
 
 	/// <summary>
 	/// Tries to parse a string into a <see cref="Interval{T}"/>.
@@ -108,7 +108,7 @@ public readonly partial struct Interval<T>
 	/// <param name="result">The result of parsing <paramref name="s"/>.</param>
 	/// <returns><see langword="true"/> if <paramref name="s"/> was successfully parsed; otherwise, <see langword="false"/>.</returns>
 	public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out Interval<T> result)
-		=> TryParse(s, _parsingSeparator, provider, out result);
+		=> TryParse(s, ParsingSeparator, provider, out result);
 
 	/// <summary>
 	/// Tries to parse a string into a <see cref="Interval{T}"/>.
@@ -132,7 +132,7 @@ public readonly partial struct Interval<T>
 	/// <param name="result">The result of parsing <paramref name="s"/>.</param>
 	/// <returns><see langword="true"/> if <paramref name="s"/> was successfully parsed; otherwise, <see langword="false"/>.</returns>
 	public static bool TryParse(ReadOnlySpan<char> s, out Interval<T> result)
-		=> TryParse(s, _parsingSeparator, null, out result);
+		=> TryParse(s, ParsingSeparator, null, out result);
 
 	/// <summary>
 	/// Tries to parse a span of characters into a <see cref="Interval{T}"/>.
@@ -152,7 +152,7 @@ public readonly partial struct Interval<T>
 	/// <param name="result">The result of parsing <paramref name="s"/>.</param>
 	/// <returns><see langword="true"/> if <paramref name="s"/> was successfully parsed; otherwise, <see langword="false"/>.</returns>
 	public static bool TryParse(ReadOnlySpan<char> s, IFormatProvider? provider, out Interval<T> result)
-		=> TryParse(s, _parsingSeparator, provider, out result);
+		=> TryParse(s, ParsingSeparator, provider, out result);
 
 	/// <summary>
 	/// Tries to parse a span of characters into a <see cref="Interval{T}"/>.

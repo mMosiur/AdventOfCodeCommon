@@ -10,17 +10,21 @@ public readonly partial struct Point2D<T>
 	where T : unmanaged, INumber<T>
 {
 
+	#region Constants
+
 	/// <summary>The count of values used in parsing.</summary>
-	private const int _parsingValueCount = 2;
+	private const int ParsingValueCount = 2;
 
 	/// <summary>The separator <see cref="char"/> used in parsing.</summary>
-	private const char _parsingSeparatorChar = ',';
+	private const char ParsingSeparatorChar = ',';
 
 	/// <summary>The opening bracket <see cref="char"/> used in parsing.</summary>
-	private const char _parsingOpeningBracketChar = '(';
+	private const char ParsingOpeningBracketChar = '(';
 
 	/// <summary>The closing bracket <see cref="char"/> used in parsing.</summary>
-	private const char _parsingClosingBracketChar = ')';
+	private const char ParsingClosingBracketChar = ')';
+
+	#endregion Constants
 
 	/// <summary>
 	/// Parses specified string into a <see cref="Point2D{T}"/>.
@@ -63,14 +67,14 @@ public readonly partial struct Point2D<T>
 	/// </remarks>
 	public static Point2D<T> Parse(ReadOnlySpan<char> s, IFormatProvider? provider = null)
 	{
-		Span<T> values = stackalloc T[_parsingValueCount];
+		Span<T> values = stackalloc T[ParsingValueCount];
 		try
 		{
 			Helpers.TupleParsing.ParseValueTupleIntoSpan(
 				s,
 				provider,
 				result: values,
-				new(_parsingValueCount, _parsingSeparatorChar, _parsingOpeningBracketChar, _parsingClosingBracketChar)
+				new(ParsingValueCount, ParsingSeparatorChar, ParsingOpeningBracketChar, ParsingClosingBracketChar)
 			);
 		}
 		catch (FormatException e)
@@ -157,12 +161,12 @@ public readonly partial struct Point2D<T>
 	public static bool TryParse(ReadOnlySpan<char> s, IFormatProvider? provider, out Point2D<T> result)
 	{
 		result = default;
-		Span<T> values = stackalloc T[_parsingValueCount];
+		Span<T> values = stackalloc T[ParsingValueCount];
 		bool parsed = Helpers.TupleParsing.TryParseValueListIntoSpan(
 			s,
 			provider,
 			in values,
-			new(_parsingValueCount, _parsingSeparatorChar, _parsingOpeningBracketChar, _parsingClosingBracketChar)
+			new(ParsingValueCount, ParsingSeparatorChar, ParsingOpeningBracketChar, ParsingClosingBracketChar)
 		);
 		if (parsed)
 		{

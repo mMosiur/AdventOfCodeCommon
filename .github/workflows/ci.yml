@@ -21,6 +21,6 @@ jobs:
     - name: Check code style
       run: dotnet format --verify-no-changes --no-restore
     - name: Build
-      run: dotnet build --no-restore --framework {{ matrix.framework }}
+      run: dotnet build --no-restore --framework ${{ matrix.framework }}
     - name: Test
-      run: dotnet test --no-build --verbosity normal --framework {{ matrix.framework }}
+      run: dotnet test --no-build --verbosity normal --framework ${{ matrix.framework }}

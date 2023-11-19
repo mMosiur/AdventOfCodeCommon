@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>net7.0;net8.0</TargetFrameworks>
-    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>AdventOfCode.Common</RootNamespace>
     <OutputType>Library</OutputType>

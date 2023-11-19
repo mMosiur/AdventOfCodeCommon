@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
-using System.Threading.Tasks;
 
 namespace AdventOfCode.Common.Geometry;
 

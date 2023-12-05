@@ -12,9 +12,11 @@ updates:
     directory: "Source/"
     schedule:
       interval: "weekly"
+    target-branch: "release"
       
   # Maintain dependencies for test NuGet packages
   - package-ecosystem: "nuget"
     directory: "Tests/"
     schedule:
       interval: "weekly"
+    target-branch: "release"

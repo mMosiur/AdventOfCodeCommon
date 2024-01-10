@@ -40,6 +40,22 @@ public readonly partial struct Interval<T>
 	}
 
 	/// <summary>
+	/// Creates an interval using the specified start and count values.
+	/// </summary>
+	/// <param name="start">The start value of the interval (inclusive).</param>
+	/// <param name="end">The end value of the interval (inclusive).</param>
+	/// <returns></returns>
+	public static Interval<T> FromStartEnd(T start, T end) => new(start, end);
+
+	/// <summary>
+	/// Create an interval using the specified start value and desired count of values included in the interval.
+	/// </summary>
+	/// <param name="start">The start value of the interval.</param>
+	/// <param name="count">The count of integer values that should be included in the interval.</param>
+	/// <returns></returns>
+	public static Interval<T> FromStartCount(T start, T count) => new(start, start + count - T.One);
+
+	/// <summary>
 	/// Determines whether the <see cref="Interval{T}"/> contains a specific value.
 	/// </summary>
 	/// <param name="value">The value to find in the interval.</param>

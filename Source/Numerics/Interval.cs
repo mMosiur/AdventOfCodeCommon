@@ -126,6 +126,72 @@ public readonly partial struct Interval<T>
 	}
 
 	/// <summary>
+	/// Calculates the intersection of this <see cref="Interval{T}"/> with the specified <paramref name="other"/> <see cref="Interval{T}"/>.
+	/// </summary>
+	/// <param name="other">The other <see cref="Interval{T}"/> to be intersected with</param>
+	/// <returns>An <see cref="Interval{T}"/> containing the intersection of this interval with the <paramref name="other"/> or <see langword="null"/> if the intervals do not intersect.</returns>
+	public Interval<T>? IntersectedWith(Interval<T> other)
+	{
+		T start = T.Max(Start, other.Start);
+		T end = T.Min(End, other.End);
+		return start <= end ? new(start, end) : null;
+	}
+
+	/// <summary>
+	/// Calculates the intervals left after removing another interval values from this one.
+	/// </summary>
+	/// <param name="other">The other <see cref="Interval{T}"/> with values to be removed</param>
+	/// <returns>
+	/// A tuple that contains two intervals <see cref="Interval{T}"/> intervals:
+	/// the first one (Left) which contains the interval of values from this interval that are smaller than the <paramref name="other"/> interval,
+	/// and the second one (Right) which contains the interval of values from this interval that are greater than the <paramref name="other"/> interval.
+	/// Either one can be <see langword="null"/> if there are no values that are a part of this interval and not a part of the <paramref name="other"/> interval.
+	/// </returns>
+	public (Interval<T>? Left, Interval<T>? Right) WithRemoved(Interval<T> other)
+	{
+		if (Start < other.Start)
+		{
+			if (End < other.Start)
+			{
+				return (this, null);
+			}
+
+			if (End <= other.End)
+			{
+				return (new(Start, other.Start - T.One), null);
+			}
+
+			return (new(Start, other.Start - T.One), new(other.End + T.One, End));
+		}
+
+		if (Start > other.End)
+		{
+			return (this, null);
+		}
+
+		if (End <= other.End)
+		{
+			return (null, null);
+		}
+
+		return (null, new(other.End + T.One, End));
+	}
+
+	/// <summary>
+	/// Moves this <see cref="Interval{T}"/> by the specified <paramref name="offset"/>.
+	/// </summary>
+	/// <param name="offset">The offset by which the interval should be moved.</param>
+	/// <returns>A new <see cref="Interval{T}"/> with the same size as this one but moved by the specified <paramref name="offset"/>.</returns>
+	public Interval<T> MovedBy(long offset)
+	{
+		var newStartLong = long.CreateChecked(Start) + offset;
+		var newStartT = T.CreateChecked(newStartLong);
+		var newEndLong = long.CreateChecked(End) + offset;
+		var newEndT = T.CreateChecked(newEndLong);
+		return new(newStartT, newEndT);
+	}
+
+	/// <summary>
 	/// Determines whether this <see cref="Interval{T}"/> is equal to the specified <paramref name="other"/> interval.
 	/// </summary>
 	/// <param name="other">The seconds interval for equality check.</param>
@@ -140,10 +206,8 @@ public readonly partial struct Interval<T>
 		return obj is Interval<T> interval && Equals(interval);
 	}
 
-	/// <inheritdoc/>
 	public static bool operator ==(Interval<T> left, Interval<T> right) => left.Equals(right);
 
-	/// <inheritdoc/>
 	public static bool operator !=(Interval<T> left, Interval<T> right) => !(left == right);
 
 	/// <inheritdoc/>

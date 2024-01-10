@@ -13,7 +13,6 @@ public readonly partial struct Interval<T>
 	: IEnumerable<T>, IEquatable<Interval<T>>
 	where T : unmanaged, IBinaryInteger<T>
 {
-
 	/// <summary>The first value of the interval (inclusive).</summary>
 	public T Start { get; }
 
@@ -35,6 +34,7 @@ public readonly partial struct Interval<T>
 		{
 			throw new ArgumentOutOfRangeException(nameof(end), "The end of the interval must be greater than or equal to the start.");
 		}
+
 		Start = start;
 		End = end;
 	}
@@ -235,5 +235,4 @@ public readonly partial struct Interval<T>
 	{
 		return $"<{Start}; {End}>";
 	}
-
 }

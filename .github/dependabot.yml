@@ -6,7 +6,8 @@ updates:
     directory: "/"
     groups:
       github-actions:
-        - "*"
+        patterns:
+          - "*"
     schedule:
       interval: "weekly"
 
@@ -15,7 +16,8 @@ updates:
     directory: "Source/"
     groups:
       source-nuget:
-        - "*"
+        patterns:
+          - "*"
     schedule:
       interval: "weekly"
     target-branch: "release"
@@ -25,7 +27,8 @@ updates:
     directory: "Tests/"
     groups:
       tests-nuget:
-        - "*"
+        patterns:
+          - "*"
     schedule:
       interval: "weekly"
     target-branch: "release"

@@ -4,12 +4,18 @@ updates:
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
+    groups:
+      github-actions:
+        - "*"
     schedule:
       interval: "weekly"
 
   # Maintain dependencies for source NuGet packages
   - package-ecosystem: "nuget"
     directory: "Source/"
+    groups:
+      source-nuget:
+        - "*"
     schedule:
       interval: "weekly"
     target-branch: "release"
@@ -17,6 +23,9 @@ updates:
   # Maintain dependencies for test NuGet packages
   - package-ecosystem: "nuget"
     directory: "Tests/"
+    groups:
+      tests-nuget:
+        - "*"
     schedule:
       interval: "weekly"
     target-branch: "release"

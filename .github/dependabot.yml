@@ -20,8 +20,8 @@ updates:
           - "*"
     schedule:
       interval: "weekly"
-    target-branch: "release"
-      
+    target-branch: "staging"
+
   # Maintain dependencies for test NuGet packages
   - package-ecosystem: "nuget"
     directory: "Tests/"
@@ -31,4 +31,4 @@ updates:
           - "*"
     schedule:
       interval: "weekly"
-    target-branch: "release"
+    target-branch: "staging"

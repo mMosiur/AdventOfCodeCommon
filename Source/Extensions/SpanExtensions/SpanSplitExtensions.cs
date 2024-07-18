@@ -8,7 +8,7 @@ namespace AdventOfCode.Common.SpanExtensions;
 public static class SpanSplitExtensions
 {
 
-#region Split
+	#region Split
 
 	/// <summary>
 	/// Returns a <see cref="SpanSplit{T}"/> that can be used to split the <paramref name="span"/> into
@@ -52,9 +52,9 @@ public static class SpanSplitExtensions
 		return Split((ReadOnlySpan<T>)span, separator);
 	}
 
-#endregion
+	#endregion
 
-#region TrySplitInTwo
+	#region TrySplitInTwo
 
 	/// <summary>
 	/// Splits given <see cref="ReadOnlySpan{T}"/> <paramref name="span"/> in exactly two parts

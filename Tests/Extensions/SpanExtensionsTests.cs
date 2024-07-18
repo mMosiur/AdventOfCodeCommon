@@ -1,4 +1,4 @@
-﻿using AdventOfCode.Common.SpanExtensions;
+using AdventOfCode.Common.SpanExtensions;
 
 namespace AdventOfCode.Common.Tests.Extensions;
 

@@ -3,17 +3,19 @@ using System;
 namespace AdventOfCode.Common.SpanExtensions;
 
 /// <summary>
-/// Extension methods for <see cref="Span{T}"/> and <see cref="ReadOnlySpan{T}"/>.
+/// Extension methods for splitting <see cref="Span{T}"/> and <see cref="ReadOnlySpan{T}"/>.
 /// </summary>
-public static class SpanExtensions
+public static class SpanSplitExtensions
 {
+
+	#region Split
 
 	/// <summary>
 	/// Returns a <see cref="SpanSplit{T}"/> that can be used to split the <paramref name="span"/> into
-	/// parts separated by the specified <typeparamref name="T"/> <paramref name="separator"/>.
+	/// parts separated by the specified <paramref name="separator"/> of type <typeparamref name="T"/>.
 	/// </summary>
 	/// <param name="span">The span to be split.</param>
-	/// <param name="separator">The separator to be used to split the span.</param>
+	/// <param name="separator">The separator value to be used to split the span.</param>
 	/// <typeparam name="T">The type of the elements in the span.</typeparam>
 	/// <returns>The <see cref="SpanSplit{T}"/> that allows enumeration of the split.</returns>
 	public static SpanSplit<T> Split<T>(this ReadOnlySpan<T> span, T separator)
@@ -24,17 +26,35 @@ public static class SpanExtensions
 
 	/// <summary>
 	/// Returns a <see cref="SpanSplit{T}"/> that can be used to split the <paramref name="span"/> into
-	/// parts separated by the specified <typeparamref name="T"/> <paramref name="separator"/>.
+	/// parts separated by the specified <paramref name="separator"/> sequence of type <typeparamref name="T"/>.
 	/// </summary>
 	/// <param name="span">The span to be split.</param>
-	/// <param name="separator">The separator to be used to split the span.</param>
+	/// <param name="separator">The separator sequence to be used to split the span.</param>
 	/// <typeparam name="T">The type of the elements in the span.</typeparam>
 	/// <returns>The <see cref="SpanSplit{T}"/> that allows enumeration of the split.</returns>
-	public static SpanSplit<T> Split<T>(this Span<T> span, T separator)
+	public static SpanSplit<T> Split<T>(this ReadOnlySpan<T> span, ReadOnlySpan<T> separator)
 		where T : IEquatable<T>
 	{
 		return new(span, separator);
 	}
+
+	/// <inheritdoc cref="Split{T}(ReadOnlySpan{T}, T)"/>
+	public static SpanSplit<T> Split<T>(this Span<T> span, T separator)
+		where T : IEquatable<T>
+	{
+		return Split((ReadOnlySpan<T>)span, separator);
+	}
+
+	/// <inheritdoc cref="Split{T}(ReadOnlySpan{T}, ReadOnlySpan{T})"/>
+	public static SpanSplit<T> Split<T>(this Span<T> span, ReadOnlySpan<T> separator)
+		where T : IEquatable<T>
+	{
+		return Split((ReadOnlySpan<T>)span, separator);
+	}
+
+	#endregion
+
+	#region TrySplitInTwo
 
 	/// <summary>
 	/// Splits given <see cref="ReadOnlySpan{T}"/> <paramref name="span"/> in exactly two parts
@@ -175,6 +195,10 @@ public static class SpanExtensions
 		second = secondSpan;
 		return true;
 	}
+
+	#endregion
+
+	#region TrySplitInThree
 
 	/// <summary>
 	/// Splits given <see cref="ReadOnlySpan{T}"/> <paramref name="span"/> in exactly three parts
@@ -355,5 +379,7 @@ public static class SpanExtensions
 		third = thirdSpan;
 		return true;
 	}
+
+	#endregion
 
 }

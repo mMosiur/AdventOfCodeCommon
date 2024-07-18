@@ -45,6 +45,21 @@ public readonly struct Cuboid<T>
 	}
 
 	/// <summary>
+	/// Initializes cuboid with ranges specified using their start and end values.
+	/// </summary>
+	/// <param name="xStart">The start value of the X range.</param>
+	/// <param name="xEnd">The end value of the X range (inclusive).</param>
+	/// <param name="yStart" > The start value of the Y range.</param>
+	/// <param name="yEnd" > The end value of the Y range (inclusive).</param>
+	/// <param name="zStart" > The start value of the Z range.</param>
+	/// <param name="zEnd" > The end value of the Z range (inclusive).</param>
+	[SetsRequiredMembers]
+	public Cuboid(T xStart, T xEnd, T yStart, T yEnd, T zStart, T zEnd)
+		: this(new(xStart, xEnd), new(yStart, yEnd), new(zStart, zEnd))
+	{
+	}
+
+	/// <summary>
 	/// Initializes cuboid as a copy of the other specified <paramref name="cuboid"/>.
 	/// </summary>
 	/// <param name="cuboid">The cuboid to be used as a base for copy initialization.</param>

@@ -10,7 +10,7 @@
   <PropertyGroup>
     <PackageId>mMosiur.AdventOfCode.Common</PackageId>
     <Title>Advent of Code Common</Title>
-    <Version>0.1.4</Version>
+    <Version>0.1.5</Version>
     <Authors>mMosiur</Authors>
     <Description>This package contains common structures, functions and helpers for Advent of Code puzzle solving.</Description>
     <RepositoryUrl>https://github.com/mMosiur/AdventOfCodeCommon</RepositoryUrl>

@@ -10,6 +10,7 @@ updates:
           - "*"
     schedule:
       interval: "weekly"
+    target-branch: "staging"
 
   # Maintain dependencies for source NuGet packages
   - package-ecosystem: "nuget"

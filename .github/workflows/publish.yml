@@ -44,7 +44,7 @@ jobs:
       with:
         name: package
     - name: Publish package to GitHub
-      run: dotnet nuget push "mMosiur.AdventOfCode.Common.*.nupkg" --source github --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+      run: dotnet nuget push "mMosiur.AdventOfCode.Common.*.nupkg" --source github --api-key "${{ secrets.GITHUB_TOKEN }}" --skip-duplicate
 
   publish-package-to-nuget:
     needs: build-package

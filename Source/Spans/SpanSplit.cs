@@ -70,9 +70,9 @@ public readonly ref struct SpanSplit<T> where T : IEquatable<T>
 
 		/// <summary>Initializes the enumerator.</summary>
 		/// <param name="span">The span to be split.</param>
-		/// <param name="separator">The separator value to be used in split (if <see cref="useSeparatorSpan"/> is set to false).</param>
-		/// <param name="separatorSpan">The separator sequence to be used in split (if <see cref="useSeparatorSpan"/> is set to true).</param>
-		/// <param name="useSeparatorSpan">Whether to use <see cref="separator"/> value or <see cref="separatorSpan"/> sequence as a split separator.</param>
+		/// <param name="separator">The separator value to be used in split (if <paramref name="useSeparatorSpan"/> is set to false).</param>
+		/// <param name="separatorSpan">The separator sequence to be used in split (if <paramref name="useSeparatorSpan"/> is set to true).</param>
+		/// <param name="useSeparatorSpan">Whether to use <paramref name="separator"/> value or <paramref name="separatorSpan"/> sequence as a split separator.</param>
 		internal Enumerator(ReadOnlySpan<T> span, T separator, ReadOnlySpan<T> separatorSpan, bool useSeparatorSpan)
 		{
 			_span = span;

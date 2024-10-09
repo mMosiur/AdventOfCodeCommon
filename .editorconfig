@@ -14,7 +14,7 @@ indent_style = tab
 indent_size = 4
 
 # Config indent for md, json, csproj and yml files
-[*.{md, json, csproj, yml}]
+[*{.md,.json,.csproj,.yml}]
 indent_style = space
 indent_size = 2
 

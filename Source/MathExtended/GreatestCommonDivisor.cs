@@ -8,9 +8,10 @@ public static partial class MathExtended
 	/// <summary>
 	/// Calculates the greatest common divisor of two numbers.
 	/// </summary>
-	/// <remarks>
-	/// Based on <a href="https://docs.rs/gcd/latest/src/gcd/lib.rs.html">Rust's implementation</a> of the binary GCD algorithm.
-	/// </remarks>
+	/// <param name="a">The first number for GCD calculation.</param>
+	/// <param name="b">The second number for GCD calculation.</param>
+	/// <typeparam name="T">The numeric type of the numbers used.</typeparam>
+	/// <returns>The greatest common divisor for provided two numbers.</returns>
 	[Pure]
 	public static T GreatestCommonDivisor<T>(T a, T b)
 		where T : struct, IBinaryInteger<T>
@@ -19,12 +20,12 @@ public static partial class MathExtended
 	}
 
 	/// <summary>
-	/// Calculates the greatest common divisor of two numbers.
-	/// Assumes both numbers are non-negative at this point.
+	/// Calculates the greatest common divisor of two numbers assuming both numbers are non-negative.
 	/// </summary>
-	/// <remarks>
-	/// Based on <a href="https://docs.rs/gcd/latest/src/gcd/lib.rs.html">Rust's implementation</a> of the binary GCD algorithm.
-	/// </remarks>
+	/// <param name="a">The first number for GCD calculation.</param>
+	/// <param name="b">The second number for GCD calculation.</param>
+	/// <typeparam name="T">The numeric type of the numbers used.</typeparam>
+	/// <returns>The greatest common divisor for provided two numbers.</returns>
 	[Pure]
 	private static T GreatestCommonDivisorInternal<T>(T a, T b)
 		where T : struct, IBinaryInteger<T>

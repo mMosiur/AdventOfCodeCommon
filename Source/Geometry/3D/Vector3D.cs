@@ -27,26 +27,26 @@ public readonly partial struct Vector3D<T> :
 	public static Vector3D<T> AdditiveIdentity => Zero;
 
 	/// <summary>
-	/// Gets vector whose components are all <see cref="T.Zero"/>.
+	/// Gets vector whose components are all zeros.
 	/// </summary>
 	/// <seealso href="https://en.wikipedia.org/wiki/Zero_vector">Zero vector</seealso>
 	public static Vector3D<T> Zero => new(T.Zero, T.Zero, T.Zero);
 
 	/// <summary>
 	/// Gets unit vector in <c>X</c> dimension, that is
-	/// a vector whose <see cref="X"/> component is <see cref="T.One"/> and all other components are all <see cref="T.Zero"/>.
+	/// a vector whose <see cref="X"/> component is one and all other components are all zeros.
 	/// </summary>
 	public static Vector3D<T> UnitX => new(T.One, T.Zero, T.Zero);
 
 	/// <summary>
 	/// Gets unit vector in <c>Y</c> dimension, that is
-	/// a vector whose <see cref="Y"/> component is <see cref="T.One"/> and all other components are all <see cref="T.Zero"/>.
+	/// a vector whose <see cref="Y"/> component is one and all other components are all zeros.
 	/// </summary>
 	public static Vector3D<T> UnitY => new(T.Zero, T.One, T.Zero);
 
 	/// <summary>
 	/// Gets unit vector in <c>Z</c> dimension, that is
-	/// a vector whose <see cref="Z"/> component is <see cref="T.One"/> and all other components are all <see cref="T.Zero"/>.
+	/// a vector whose <see cref="Z"/> component is one and all other components are all zeros.
 	/// </summary>
 	public static Vector3D<T> UnitZ => new(T.Zero, T.Zero, T.One);
 

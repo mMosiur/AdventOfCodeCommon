@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace AdventOfCode.Common.Numerics;
@@ -45,8 +46,18 @@ public sealed partial class MultiInterval<T>
 		_intervals.Insert(index - intervalsToRemove, new(newIntervalStart, newIntervalEnd));
 	}
 
+	/// <summary>
+	/// Adds all intervals from specified collection to this MultiInterval, merging them with any overlapping or touching intervals.
+	/// </summary>
+	/// <param name="intervals">The collection of intervals to be added to this MultiInterval</param>
+	/// <remarks>
+	/// Note that adding any amount of intervals to MultiInterval may actually result in lowering the count of intervals stored,
+	/// as the added intervals may merge with one or more existing intervals.
+	/// </remarks>
+	/// <exception cref="ArgumentNullException">Thrown when <paramref name="intervals"/> collection is null.</exception>
 	public void Add(IEnumerable<Interval<T>> intervals)
 	{
+		ArgumentNullException.ThrowIfNull(intervals);
 		foreach (var interval in intervals)
 		{
 			Add(interval);

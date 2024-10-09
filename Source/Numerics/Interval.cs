@@ -206,8 +206,20 @@ public readonly partial struct Interval<T>
 		return obj is Interval<T> interval && Equals(interval);
 	}
 
+	/// <summary>
+	/// Determines whether two <see cref="Interval{T}"/> instances are equal.
+	/// </summary>
+	/// <param name="left">The first interval for equality check.</param>
+	/// <param name="right">The first interval for equality check.</param>
+	/// <returns><see langword="true"/> if <paramref name="left"/> and <paramref name="right"/> are equal, <see langword="false"/> otherwise.</returns>
 	public static bool operator ==(Interval<T> left, Interval<T> right) => left.Equals(right);
 
+	/// <summary>
+	/// Determines whether two <see cref="Interval{T}"/> instances are not equal.
+	/// </summary>
+	/// <param name="left">The first interval for non-equality check.</param>
+	/// <param name="right">The first interval for non-equality check.</param>
+	/// <returns><see langword="true"/> if <paramref name="left"/> and <paramref name="right"/> are not equal, <see langword="false"/> otherwise.</returns>
 	public static bool operator !=(Interval<T> left, Interval<T> right) => !(left == right);
 
 	/// <inheritdoc/>
@@ -230,7 +242,10 @@ public readonly partial struct Interval<T>
 	/// <inheritdoc/>
 	IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-	/// <inheritdoc/>
+
+	/// <summary>
+	/// Returns a string representation of the current <see cref="Interval{T}"/>.
+	/// </summary>
 	public override string ToString()
 	{
 		return $"<{Start}; {End}>";

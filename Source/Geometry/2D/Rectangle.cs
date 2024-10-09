@@ -105,7 +105,7 @@ public readonly struct Rectangle<T>
 	/// <summary>
 	/// Determines whether the specified rectangle is contained inside the current rectangle.
 	/// </summary>
-	/// <param name="cuboid">The rectangle to be checked.</param>
+	/// <param name="rectangle">The rectangle to be checked.</param>
 	public bool Contains(Rectangle<T> rectangle)
 	{
 		return XRange.Contains(rectangle.XRange) && YRange.Contains(rectangle.YRange);

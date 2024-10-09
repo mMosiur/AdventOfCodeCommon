@@ -59,7 +59,7 @@ internal static class TupleParsing
 	}
 
 	/// <summary>
-	/// Parse a tuple from the specified <see cref="ReadOnlySpan{char}"/> <paramref name="s"/>
+	/// Parse a tuple from the specified span <paramref name="s"/>
 	/// and write resulting values into the specified <see langword="in"/> <see cref="Span{T}"/> <paramref name="result"/>.
 	/// </summary>
 	/// <typeparam name="T">The type of the tuple.</typeparam>
@@ -128,7 +128,7 @@ internal static class TupleParsing
 	}
 
 	/// <summary>
-	/// Parse a tuple from the specified <see cref="ReadOnlySpan{char}"/> <paramref name="s"/>
+	/// Parse a tuple from the specified span <paramref name="s"/>
 	/// and write resulting values into the specified <see langword="in"/> <see cref="Span{T}"/> <paramref name="result"/>.
 	/// </summary>
 	/// <typeparam name="T">The type of the tuple.</typeparam>

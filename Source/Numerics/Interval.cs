@@ -13,6 +13,12 @@ public readonly partial struct Interval<T>
 	: IEnumerable<T>, IEquatable<Interval<T>>
 	where T : unmanaged, IBinaryInteger<T>
 {
+	/// <summary>
+	/// The flag that signals whether the interval is not empty. Should always be set to <see langword="true"/> by every constructor,
+	/// meaning the only way for it to be <see langword="false"/> is when the default constructor or <see langword="default"/> is used.
+	/// </summary>
+	private readonly bool _isNotEmpty;
+
 	/// <summary>The first value of the interval (inclusive).</summary>
 	public T Start { get; }
 
@@ -20,7 +26,16 @@ public readonly partial struct Interval<T>
 	public T End { get; }
 
 	/// <summary>The count of integer values included in the interval.</summary>
-	public T Count => End - Start + T.One;
+	public T Count => _isNotEmpty ? End - Start + T.One : T.Zero;
+
+	/// <summary>
+	/// Returns whether the interval is empty.
+	/// </summary>
+	/// <remarks>
+	/// When this is <see langword="true"/>, the interval is empty and <see cref="Start"/> and <see cref="End"/>
+	/// should not be considered valid and used.
+	/// </remarks>
+	public bool IsEmpty => !_isNotEmpty;
 
 	/// <summary>
 	/// Initializes interval with the specified start and end values.
@@ -37,6 +52,7 @@ public readonly partial struct Interval<T>
 
 		Start = start;
 		End = end;
+		_isNotEmpty = true;
 	}
 
 	/// <summary>
@@ -56,11 +72,20 @@ public readonly partial struct Interval<T>
 	public static Interval<T> FromStartCount(T start, T count) => new(start, start + count - T.One);
 
 	/// <summary>
+	/// Returns an empty <see cref="Interval{T}"/> object.
+	/// </summary>
+	/// <remarks>
+	/// Note that <see cref="Start"/> and <see cref="End"/> of the empty interval should not be considered valid and used.
+	/// </remarks>
+	public static Interval<T> Empty => default;
+
+	/// <summary>
 	/// Determines whether the <see cref="Interval{T}"/> contains a specific value.
 	/// </summary>
 	/// <param name="value">The value to find in the interval.</param>
 	public bool Contains(T value)
 	{
+		if (IsEmpty) return false;
 		return Start <= value && value <= End;
 	}
 
@@ -82,6 +107,7 @@ public readonly partial struct Interval<T>
 	/// <seealso href="https://en.wikipedia.org/wiki/Superset">Proper superset</seealso>
 	public bool IsSupersetOf(Interval<T> interval)
 	{
+		if (IsEmpty || interval.IsEmpty) return false;
 		return Start <= interval.Start && interval.End <= End;
 	}
 
@@ -102,6 +128,7 @@ public readonly partial struct Interval<T>
 	/// <seealso href="https://en.wikipedia.org/wiki/Subset">Subset</seealso>
 	public bool IsSubsetOf(Interval<T> interval)
 	{
+		if (IsEmpty || interval.IsEmpty) return false;
 		return interval.Start <= Start && End <= interval.End;
 	}
 
@@ -122,6 +149,7 @@ public readonly partial struct Interval<T>
 	/// <seealso href="https://en.wikipedia.org/wiki/Intersection_(set_theory)">Intersection</seealso>
 	public bool Overlaps(Interval<T> interval)
 	{
+		if (IsEmpty || interval.IsEmpty) return false;
 		return interval.Start <= End && Start <= interval.End;
 	}
 
@@ -129,12 +157,13 @@ public readonly partial struct Interval<T>
 	/// Calculates the intersection of this <see cref="Interval{T}"/> with the specified <paramref name="other"/> <see cref="Interval{T}"/>.
 	/// </summary>
 	/// <param name="other">The other <see cref="Interval{T}"/> to be intersected with</param>
-	/// <returns>An <see cref="Interval{T}"/> containing the intersection of this interval with the <paramref name="other"/> or <see langword="null"/> if the intervals do not intersect.</returns>
-	public Interval<T>? IntersectedWith(Interval<T> other)
+	/// <returns>An <see cref="Interval{T}"/> containing the intersection of this interval with the <paramref name="other"/> or <see cref="Interval{T}.Empty"/> if the intervals do not intersect.</returns>
+	public Interval<T> IntersectedWith(Interval<T> other)
 	{
+		if (IsEmpty || other.IsEmpty) return Empty;
 		T start = T.Max(Start, other.Start);
 		T end = T.Min(End, other.End);
-		return start <= end ? new(start, end) : null;
+		return start <= end ? new(start, end) : Empty;
 	}
 
 	/// <summary>
@@ -145,20 +174,23 @@ public readonly partial struct Interval<T>
 	/// A tuple that contains two intervals <see cref="Interval{T}"/> intervals:
 	/// the first one (Left) which contains the interval of values from this interval that are smaller than the <paramref name="other"/> interval,
 	/// and the second one (Right) which contains the interval of values from this interval that are greater than the <paramref name="other"/> interval.
-	/// Either one can be <see langword="null"/> if there are no values that are a part of this interval and not a part of the <paramref name="other"/> interval.
+	/// Either one can be <see cref="Interval{T}.Empty"/> if there are no values that are a part of this interval and not a part of the <paramref name="other"/> interval.
 	/// </returns>
-	public (Interval<T>? Left, Interval<T>? Right) WithRemoved(Interval<T> other)
+	public (Interval<T> Left, Interval<T> Right) WithRemoved(Interval<T> other)
 	{
+		if (IsEmpty) return (other, Empty);
+		if (other.IsEmpty) return (this, Empty);
+
 		if (Start < other.Start)
 		{
 			if (End < other.Start)
 			{
-				return (this, null);
+				return (this, Empty);
 			}
 
 			if (End <= other.End)
 			{
-				return (new(Start, other.Start - T.One), null);
+				return (new(Start, other.Start - T.One), Empty);
 			}
 
 			return (new(Start, other.Start - T.One), new(other.End + T.One, End));
@@ -166,15 +198,15 @@ public readonly partial struct Interval<T>
 
 		if (Start > other.End)
 		{
-			return (this, null);
+			return (this, Empty);
 		}
 
 		if (End <= other.End)
 		{
-			return (null, null);
+			return (Empty, Empty);
 		}
 
-		return (null, new(other.End + T.One, End));
+		return (Empty, new(other.End + T.One, End));
 	}
 
 	/// <summary>
@@ -184,6 +216,7 @@ public readonly partial struct Interval<T>
 	/// <returns>A new <see cref="Interval{T}"/> with the same size as this one but moved by the specified <paramref name="offset"/>.</returns>
 	public Interval<T> MovedBy(long offset)
 	{
+		if (IsEmpty) return Empty;
 		var newStartLong = long.CreateChecked(Start) + offset;
 		var newStartT = T.CreateChecked(newStartLong);
 		var newEndLong = long.CreateChecked(End) + offset;
@@ -197,6 +230,9 @@ public readonly partial struct Interval<T>
 	/// <param name="other">The seconds interval for equality check.</param>
 	public bool Equals(Interval<T> other)
 	{
+		if (IsEmpty && other.IsEmpty) return true; // Both are null
+		if (IsEmpty || other.IsEmpty) return false; // Only one is null
+													// Both are not null
 		return Start == other.Start && End == other.End;
 	}
 
@@ -225,7 +261,7 @@ public readonly partial struct Interval<T>
 	/// <inheritdoc/>
 	public override int GetHashCode()
 	{
-		return HashCode.Combine(Start, End);
+		return HashCode.Combine(_isNotEmpty, Start, End);
 	}
 
 	/// <summary>
@@ -233,6 +269,7 @@ public readonly partial struct Interval<T>
 	/// </summary>
 	public IEnumerator<T> GetEnumerator()
 	{
+		if (IsEmpty) yield break;
 		for (T i = Start; i <= End; i++)
 		{
 			yield return i;
@@ -248,6 +285,6 @@ public readonly partial struct Interval<T>
 	/// </summary>
 	public override string ToString()
 	{
-		return $"<{Start}; {End}>";
+		return _isNotEmpty ? $"<{Start}; {End}>" : "<empty>";
 	}
 }

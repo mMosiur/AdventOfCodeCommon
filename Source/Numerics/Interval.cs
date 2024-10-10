@@ -232,7 +232,7 @@ public readonly partial struct Interval<T>
 	{
 		if (IsEmpty && other.IsEmpty) return true; // Both are null
 		if (IsEmpty || other.IsEmpty) return false; // Only one is null
-		// Both are not null
+													// Both are not null
 		return Start == other.Start && End == other.End;
 	}
 

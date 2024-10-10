@@ -72,9 +72,9 @@ public readonly partial struct Point2D<T>
 		{
 			Helpers.TupleParsing.ParseValueTupleIntoSpan(
 				s,
-				provider,
 				result: values,
-				new(ParsingValueCount, ParsingSeparatorChar, ParsingOpeningBracketChar, ParsingClosingBracketChar)
+				new(ParsingSeparatorChar, ParsingOpeningBracketChar, ParsingClosingBracketChar),
+				provider
 			);
 		}
 		catch (FormatException e)
@@ -162,11 +162,11 @@ public readonly partial struct Point2D<T>
 	{
 		result = default;
 		Span<T> values = stackalloc T[ParsingValueCount];
-		bool parsed = Helpers.TupleParsing.TryParseValueListIntoSpan(
+		bool parsed = Helpers.TupleParsing.TryParseValueListIntoSpanExact(
 			s,
-			provider,
 			in values,
-			new(ParsingValueCount, ParsingSeparatorChar, ParsingOpeningBracketChar, ParsingClosingBracketChar)
+			new(ParsingSeparatorChar, ParsingOpeningBracketChar, ParsingClosingBracketChar),
+			provider
 		);
 		if (parsed)
 		{

@@ -17,6 +17,7 @@ public sealed partial class MultiInterval<T>
 		for (int i = 0; i < _intervals.Count; i++)
 		{
 			var currentInterval = _intervals[i];
+
 			if (currentInterval.End < intervalToRemove.Start)
 			{
 				continue;
@@ -24,31 +25,30 @@ public sealed partial class MultiInterval<T>
 
 			if (currentInterval.Start > intervalToRemove.End)
 			{
-				break;
+				return anythingRemoved;
 			}
 
 			anythingRemoved = true;
 
 			var (untouchedLeft, untouchedRight) = currentInterval.WithRemoved(intervalToRemove);
 
-			if (untouchedLeft is null && untouchedRight is null)
+			switch (untouchedLeft.IsEmpty, untouchedRight.IsEmpty)
 			{
-				_intervals.RemoveAt(i);
-				i--;
-			}
-			else if (untouchedLeft is not null && untouchedRight is null)
-			{
-				_intervals[i] = untouchedLeft.Value;
-			}
-			else if (untouchedLeft is null && untouchedRight is not null)
-			{
-				_intervals[i] = untouchedRight.Value;
-			}
-			else
-			{
-				_intervals[i] = untouchedLeft!.Value;
-				i++;
-				_intervals.Insert(i, untouchedRight!.Value);
+				case (true, true):
+					_intervals.RemoveAt(i);
+					i--;
+					break;
+				case (false, true):
+					_intervals[i] = untouchedLeft;
+					break;
+				case (true, false):
+					_intervals[i] = untouchedRight;
+					break;
+				case (false, false):
+					_intervals[i] = untouchedLeft;
+					i++;
+					_intervals.Insert(i, untouchedRight);
+					break;
 			}
 		}
 

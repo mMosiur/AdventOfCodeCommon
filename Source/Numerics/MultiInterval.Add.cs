@@ -15,6 +15,7 @@ public sealed partial class MultiInterval<T>
 	/// </remarks>
 	public void Add(Interval<T> interval)
 	{
+		if (interval.IsEmpty) return;
 		T newIntervalStart = interval.Start;
 		T newIntervalEnd = interval.End;
 

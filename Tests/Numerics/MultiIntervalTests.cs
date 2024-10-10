@@ -161,4 +161,62 @@ public class MultiIntervalTests
 			true
 		},
 	};
+
+	[Theory]
+	[MemberData(nameof(MultiIntervalAddEmptyIntervalTestData))]
+	public void Add_EmptyInterval_ShouldNotChangeMultiInterval(Interval<int>[] initialIntervals)
+	{
+		MultiInterval<int> multiInterval = new(initialIntervals);
+
+		multiInterval.Add(Interval<int>.Empty);
+
+		Assert.True(
+			multiInterval.SequenceEqual(initialIntervals),
+			$"Initial: ({string.Join(", ", initialIntervals)}); expected it to not change after adding Empty interval, actual result: ({string.Join(", ", multiInterval)})"
+		);
+	}
+
+	public static TheoryData<Interval<int>[]> MultiIntervalAddEmptyIntervalTestData = new()
+	{
+		new Interval<int>[] { new(1, 2), new(5, 6), new(9, 11) },
+		new Interval<int>[] { new(1, 5), new(7, 10) },
+		new Interval<int>[] { new(1, 3), new(5, 8), new(10, 12) },
+		new Interval<int>[] { new(1, 5), new(7, 10) },
+		new Interval<int>[] { new(1, 3), new(5, 8) },
+	};
+
+	[Theory]
+	[MemberData(nameof(MultiIntervalRemoveEmptyIntervalTestData))]
+	public void Remove_EmptyInterval_ShouldNotChangeMultiInterval(Interval<int>[] initialIntervals)
+	{
+		MultiInterval<int> multiInterval = new(initialIntervals);
+
+		bool removed = multiInterval.Remove(Interval<int>.Empty);
+
+		Assert.True(
+			multiInterval.SequenceEqual(initialIntervals),
+			$"Initial: ({string.Join(", ", initialIntervals)}); expected it to not change after removing Empty interval, actual result: ({string.Join(", ", multiInterval)})"
+		);
+		Assert.False(removed);
+	}
+
+	public static TheoryData<Interval<int>[]> MultiIntervalRemoveEmptyIntervalTestData = new()
+	{
+		new Interval<int>[] { new(1, 5), new(7, 10), new(12, 15) },
+		new Interval<int>[] { new(1, 3), new(6, 8) },
+		new Interval<int>[] { new(1, 8), new(10, 12) },
+		new Interval<int>[] { new(1, 2), new(4, 6), new(10, 15) },
+		new Interval<int>[] { new(1, 2), new(4, 6), new(10, 15) },
+		new Interval<int>[] { new(1, 6), new(10, 12) },
+		new Interval<int>[] { new(1, 6), new(10, 12) },
+		new Interval<int>[] { new(1, 2), new(4, 6), new(10, 12) },
+		new Interval<int>[] { new(1, 5), new(7, 10), new(12, 15) },
+		new Interval<int>[] { new(1, 3), new(6, 8) },
+		new Interval<int>[] { new(1, 8), new(10, 12) },
+		new Interval<int>[] { new(1, 2), new(4, 6), new(10, 15) },
+		new Interval<int>[] { new(1, 2), new(4, 6), new(10, 15) },
+		new Interval<int>[] { new(1, 6), new(10, 12) },
+		new Interval<int>[] { new(1, 6), new(10, 12) },
+		new Interval<int>[] { new(1, 2), new(4, 6), new(10, 12) },
+	};
 }

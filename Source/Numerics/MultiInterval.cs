@@ -40,12 +40,13 @@ public sealed partial class MultiInterval<T>
 	}
 
 	/// <summary>
-	/// Initializes a new <see cref="MultiInterval{T}"/> instance that contains single provided interval.
+	/// Initializes a new <see cref="MultiInterval{T}"/> instance from single provided interval.
 	/// </summary>
 	/// <param name="range">The interval to add to the collection.</param>
 	public MultiInterval(Interval<T> range)
 		: this(1)
 	{
+		if (range.IsEmpty) return;
 		_intervals.Add(range);
 	}
 
@@ -67,6 +68,7 @@ public sealed partial class MultiInterval<T>
 	{
 		foreach (var range in ranges)
 		{
+			if (range.IsEmpty) continue;
 			Add(range);
 		}
 	}

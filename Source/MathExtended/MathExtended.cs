@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Common;
+namespace AdventOfCode.Common;
 
 /// <summary>
 /// A static class that consists of more advanced mathematical functions and constants

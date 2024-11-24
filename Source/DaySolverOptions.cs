@@ -4,7 +4,7 @@ using System.IO;
 namespace AdventOfCode.Common;
 
 /// <summary>
-/// The options class to configure a generic <see cref="DaySolver"/>.
+/// The base options class for <see cref="DaySolver{TDaySolverOptions}"/> configuration.
 /// </summary>
 public abstract class DaySolverOptions
 {

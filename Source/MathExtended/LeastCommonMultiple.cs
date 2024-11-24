@@ -6,6 +6,7 @@ using System.Numerics;
 
 namespace AdventOfCode.Common;
 
+// Mathematical functions for Least Common Multiple calculation.
 public static partial class MathExtended
 {
 	/// <summary>

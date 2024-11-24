@@ -3,6 +3,7 @@ using System.Numerics;
 
 namespace AdventOfCode.Common;
 
+// Mathematical functions for Greatest Common Divisor calculation.
 public static partial class MathExtended
 {
 	/// <summary>

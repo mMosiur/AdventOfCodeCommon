@@ -7,53 +7,6 @@ namespace AdventOfCode.Common.SpanExtensions;
 /// </summary>
 public static class SpanSplitExtensions
 {
-
-	#region Split
-
-	/// <summary>
-	/// Returns a <see cref="SpanSplit{T}"/> that can be used to split the <paramref name="span"/> into
-	/// parts separated by the specified <paramref name="separator"/> of type <typeparamref name="T"/>.
-	/// </summary>
-	/// <param name="span">The span to be split.</param>
-	/// <param name="separator">The separator value to be used to split the span.</param>
-	/// <typeparam name="T">The type of the elements in the span.</typeparam>
-	/// <returns>The <see cref="SpanSplit{T}"/> that allows enumeration of the split.</returns>
-	public static SpanSplit<T> Split<T>(this ReadOnlySpan<T> span, T separator)
-		where T : IEquatable<T>
-	{
-		return new(span, separator);
-	}
-
-	/// <summary>
-	/// Returns a <see cref="SpanSplit{T}"/> that can be used to split the <paramref name="span"/> into
-	/// parts separated by the specified <paramref name="separator"/> sequence of type <typeparamref name="T"/>.
-	/// </summary>
-	/// <param name="span">The span to be split.</param>
-	/// <param name="separator">The separator sequence to be used to split the span.</param>
-	/// <typeparam name="T">The type of the elements in the span.</typeparam>
-	/// <returns>The <see cref="SpanSplit{T}"/> that allows enumeration of the split.</returns>
-	public static SpanSplit<T> Split<T>(this ReadOnlySpan<T> span, ReadOnlySpan<T> separator)
-		where T : IEquatable<T>
-	{
-		return new(span, separator);
-	}
-
-	/// <inheritdoc cref="Split{T}(ReadOnlySpan{T}, T)"/>
-	public static SpanSplit<T> Split<T>(this Span<T> span, T separator)
-		where T : IEquatable<T>
-	{
-		return Split((ReadOnlySpan<T>)span, separator);
-	}
-
-	/// <inheritdoc cref="Split{T}(ReadOnlySpan{T}, ReadOnlySpan{T})"/>
-	public static SpanSplit<T> Split<T>(this Span<T> span, ReadOnlySpan<T> separator)
-		where T : IEquatable<T>
-	{
-		return Split((ReadOnlySpan<T>)span, separator);
-	}
-
-	#endregion
-
 	#region TrySplitInTwo
 
 	/// <summary>
@@ -80,12 +33,14 @@ public static class SpanSplitExtensions
 		{
 			return false;
 		}
+
 		ReadOnlySpan<T> firstSpan = span[..index];
 		ReadOnlySpan<T> secondSpan = span[(index + 1)..];
 		if (!allowMultipleSeparators && secondSpan.IndexOf(separator) >= 0)
 		{
 			return false;
 		}
+
 		first = firstSpan;
 		second = secondSpan;
 		return true;
@@ -115,12 +70,14 @@ public static class SpanSplitExtensions
 		{
 			return false;
 		}
+
 		Span<T> firstSpan = span[..index];
 		Span<T> secondSpan = span[(index + 1)..];
 		if (!allowMultipleSeparators && secondSpan.IndexOf(separator) >= 0)
 		{
 			return false;
 		}
+
 		first = firstSpan;
 		second = secondSpan;
 		return true;
@@ -150,12 +107,14 @@ public static class SpanSplitExtensions
 		{
 			return false;
 		}
+
 		ReadOnlySpan<T> firstSpan = span[..index];
 		ReadOnlySpan<T> secondSpan = span[(index + separator.Length)..];
 		if (!allowMultipleSeparators && secondSpan.IndexOf(separator) >= 0)
 		{
 			return false;
 		}
+
 		first = firstSpan;
 		second = secondSpan;
 		return true;
@@ -185,12 +144,14 @@ public static class SpanSplitExtensions
 		{
 			return false;
 		}
+
 		Span<T> firstSpan = span[..index];
 		Span<T> secondSpan = span[(index + separator.Length)..];
 		if (!allowMultipleSeparators && secondSpan.IndexOf(separator) >= 0)
 		{
 			return false;
 		}
+
 		first = firstSpan;
 		second = secondSpan;
 		return true;
@@ -226,6 +187,7 @@ public static class SpanSplitExtensions
 		{
 			return false;
 		}
+
 		ReadOnlySpan<T> firstSpan = span[..index];
 		ReadOnlySpan<T> secondSpan = span[(index + 1)..];
 		index = secondSpan.IndexOf(separator);
@@ -233,12 +195,14 @@ public static class SpanSplitExtensions
 		{
 			return false;
 		}
+
 		ReadOnlySpan<T> thirdSpan = secondSpan[(index + 1)..];
 		secondSpan = secondSpan[..index];
 		if (!allowMultipleSeparators && thirdSpan.IndexOf(separator) >= 0)
 		{
 			return false;
 		}
+
 		first = firstSpan;
 		second = secondSpan;
 		third = thirdSpan;
@@ -271,6 +235,7 @@ public static class SpanSplitExtensions
 		{
 			return false;
 		}
+
 		Span<T> firstSpan = span[..index];
 		Span<T> secondSpan = span[(index + 1)..];
 		index = secondSpan.IndexOf(separator);
@@ -278,12 +243,14 @@ public static class SpanSplitExtensions
 		{
 			return false;
 		}
+
 		Span<T> thirdSpan = secondSpan[(index + 1)..];
 		secondSpan = secondSpan[..index];
 		if (!allowMultipleSeparators && thirdSpan.IndexOf(separator) >= 0)
 		{
 			return false;
 		}
+
 		first = firstSpan;
 		second = secondSpan;
 		third = thirdSpan;
@@ -316,6 +283,7 @@ public static class SpanSplitExtensions
 		{
 			return false;
 		}
+
 		ReadOnlySpan<T> firstSpan = span[..index];
 		ReadOnlySpan<T> secondSpan = span[(index + separator.Length)..];
 		index = secondSpan.IndexOf(separator);
@@ -323,12 +291,14 @@ public static class SpanSplitExtensions
 		{
 			return false;
 		}
+
 		ReadOnlySpan<T> thirdSpan = secondSpan[(index + separator.Length)..];
 		secondSpan = secondSpan[..index];
 		if (!allowMultipleSeparators && thirdSpan.IndexOf(separator) >= 0)
 		{
 			return false;
 		}
+
 		first = firstSpan;
 		second = secondSpan;
 		third = thirdSpan;
@@ -361,6 +331,7 @@ public static class SpanSplitExtensions
 		{
 			return false;
 		}
+
 		Span<T> firstSpan = span[..index];
 		Span<T> secondSpan = span[(index + separator.Length)..];
 		index = secondSpan.IndexOf(separator);
@@ -368,12 +339,14 @@ public static class SpanSplitExtensions
 		{
 			return false;
 		}
+
 		Span<T> thirdSpan = secondSpan[(index + separator.Length)..];
 		secondSpan = secondSpan[..index];
 		if (!allowMultipleSeparators && thirdSpan.IndexOf(separator) >= 0)
 		{
 			return false;
 		}
+
 		first = firstSpan;
 		second = secondSpan;
 		third = thirdSpan;
@@ -381,5 +354,4 @@ public static class SpanSplitExtensions
 	}
 
 	#endregion
-
 }

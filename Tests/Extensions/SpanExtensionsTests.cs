@@ -1,5 +1,3 @@
-using AdventOfCode.Common.SpanExtensions;
-
 namespace AdventOfCode.Common.Tests.Extensions;
 
 public class SpanSplitExtensionsTests
@@ -8,14 +6,13 @@ public class SpanSplitExtensionsTests
 	public void SplitWithSingleSeparator_ReturnsExpectedPartsUsingForeach()
 	{
 		ReadOnlySpan<char> input = "a,b,c";
-		var separator = ',';
-		var result = input.Split(separator);
-
-		var expectedParts = new[] { "a", "b", "c" };
+		char separator = ',';
+		string[] expectedParts = ["a", "b", "c"];
 
 		int index = 0;
-		foreach (var part in result)
+		foreach (Range partRange in input.Split(separator))
 		{
+			ReadOnlySpan<char> part = input[partRange];
 			Assert.Equal(expectedParts[index], part.ToString());
 			index++;
 		}
@@ -28,13 +25,12 @@ public class SpanSplitExtensionsTests
 	{
 		ReadOnlySpan<char> input = "a--b--c";
 		ReadOnlySpan<char> separator = "--";
-		var result = input.Split(separator);
-
-		var expectedParts = new[] { "a", "b", "c" };
+		string[] expectedParts = ["a", "b", "c"];
 
 		int index = 0;
-		foreach (var part in result)
+		foreach (Range partRange in input.Split(separator))
 		{
+			ReadOnlySpan<char> part = input[partRange];
 			Assert.Equal(expectedParts[index], part.ToString());
 			index++;
 		}

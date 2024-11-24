@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net7.0;net8.0</TargetFrameworks>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <RootNamespace>AdventOfCode.Common</RootNamespace>
     <OutputType>Library</OutputType>
@@ -11,7 +11,7 @@
   <PropertyGroup>
     <PackageId>mMosiur.AdventOfCode.Common</PackageId>
     <Title>Advent of Code Common</Title>
-    <Version>0.2.0</Version>
+    <Version>0.3.0</Version>
     <Authors>mMosiur</Authors>
     <Description>This package contains common structures, functions and helpers for Advent of Code puzzle solving.</Description>
     <RepositoryUrl>https://github.com/mMosiur/AdventOfCodeCommon</RepositoryUrl>

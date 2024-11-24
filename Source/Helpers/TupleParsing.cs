@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using AdventOfCode.Common.SpanExtensions;
 
 namespace AdventOfCode.Common.Helpers;
 
@@ -141,14 +140,14 @@ internal static class TupleParsing
 		}
 
 		int partCount = 0;
-		foreach (ReadOnlySpan<char> part in trimmedSpan.Split(options.Separator))
+		foreach (Range partRange in trimmedSpan.Split(options.Separator))
 		{
 			if (partCount >= result.Length)
 			{
 				throw new FormatException("The number of parsed values was bigger than expected.");
 			}
 
-			result[partCount] = T.Parse(part, provider);
+			result[partCount] = T.Parse(trimmedSpan[partRange], provider);
 			partCount++;
 		}
 
@@ -218,14 +217,14 @@ internal static class TupleParsing
 		}
 
 		int partCount = 0;
-		foreach (ReadOnlySpan<char> part in trimmedSpan.Split(options.Separator))
+		foreach (Range partRange in trimmedSpan.Split(options.Separator))
 		{
 			if (partCount >= result.Length)
 			{
 				return false; // Too many values to parse
 			}
 
-			if (!T.TryParse(part, provider, out T? parsedPart))
+			if (!T.TryParse(trimmedSpan[partRange], provider, out T? parsedPart))
 			{
 				return false; // Parsing failed
 			}

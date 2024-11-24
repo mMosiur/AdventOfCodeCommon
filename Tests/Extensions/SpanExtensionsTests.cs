@@ -1,5 +1,3 @@
-using AdventOfCode.Common.SpanExtensions;
-
 namespace AdventOfCode.Common.Tests.Extensions;
 
 public class SpanSplitExtensionsTests

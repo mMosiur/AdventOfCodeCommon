@@ -12,7 +12,7 @@ public class SpanSplitExtensionsTests
 		int index = 0;
 		foreach (Range partRange in input.Split(separator))
 		{
-			var part = input[partRange];
+			ReadOnlySpan<char> part = input[partRange];
 			Assert.Equal(expectedParts[index], part.ToString());
 			index++;
 		}
@@ -30,7 +30,7 @@ public class SpanSplitExtensionsTests
 		int index = 0;
 		foreach (Range partRange in input.Split(separator))
 		{
-			var part = input[partRange];
+			ReadOnlySpan<char> part = input[partRange];
 			Assert.Equal(expectedParts[index], part.ToString());
 			index++;
 		}

@@ -88,7 +88,7 @@ public static class SpanEnumeratorExtensions
 	/// </remarks>
 	/// <param name="enumerator">The enumerator to be advanced.</param>
 	/// <exception cref="InvalidOperationException">Thrown when the enumerator can't move to the next item.</exception>
-	public static void EnsureMoveNext<T>(this ref SpanSplit<T>.Enumerator enumerator) where T : IEquatable<T>
+	public static void EnsureMoveNext<T>(this ref MemoryExtensions.SpanSplitEnumerator<char> enumerator) where T : IEquatable<T>
 	{
 		if (!enumerator.MoveNext())
 		{
@@ -144,9 +144,10 @@ public static class SpanEnumeratorExtensions
 	/// (treats whitespace-only parts as empty).
 	/// </summary>
 	/// <param name="enumerator">The enumerator to be advanced.</param>
+	/// <param name="spanSplitText">The text span that is being split and enumerated.</param>
 	/// <param name="skipCurrent">Whether to skip the current element in enumerator regardless of its content.</param>
 	/// <returns>Whether the enumerator has reached non-empty part (did not reach end).</returns>
-	public static bool MoveToNextNonEmptyPart(this ref SpanSplit<char>.Enumerator enumerator, bool skipCurrent = true)
+	public static bool MoveToNextNonEmptyPart(this ref MemoryExtensions.SpanSplitEnumerator<char> enumerator, ReadOnlySpan<char> spanSplitText, bool skipCurrent = true)
 	{
 		if (skipCurrent)
 		{
@@ -156,7 +157,7 @@ public static class SpanEnumeratorExtensions
 			}
 		}
 		// No need to check for `IsEmpty` because `IsWhiteSpace()` will in that case return false also.
-		while (enumerator.Current.IsWhiteSpace())
+		while (spanSplitText[enumerator.Current].IsWhiteSpace())
 		{
 			if (!enumerator.MoveNext())
 			{
@@ -172,14 +173,14 @@ public static class SpanEnumeratorExtensions
 	/// Throws exception if it fails to do so (the end had been reached).
 	/// </summary>
 	/// <param name="enumerator">The enumerator to be advanced.</param>
+	/// <param name="spanSplitText">The text span that is being split and enumerated.</param>
 	/// <param name="skipCurrent">Whether to skip the current element in enumerator regardless of its content.</param>
 	/// <exception cref="InvalidOperationException">Thrown when the enumerator can't move to the next item.</exception>
-	public static void EnsureMoveToNextNonEmptyPart(this ref SpanSplit<char>.Enumerator enumerator, bool skipCurrent = true)
+	public static void EnsureMoveToNextNonEmptyPart(this ref MemoryExtensions.SpanSplitEnumerator<char> enumerator, ReadOnlySpan<char> spanSplitText, bool skipCurrent = true)
 	{
-		if (!enumerator.MoveToNextNonEmptyPart(skipCurrent))
+		if (!enumerator.MoveToNextNonEmptyPart(spanSplitText, skipCurrent))
 		{
 			throw new InvalidOperationException("The enumerator has reached the end of the collection.");
 		}
 	}
-
 }

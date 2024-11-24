@@ -6,17 +6,17 @@ namespace AdventOfCode.Common;
 public interface IDaySolver
 {
 	/// <summary>
-	/// Property <c>Year</c> represents the year of the Advent of Code event the puzzle of the <see cref="DaySolver"/> belongs to.
+	/// Property <c>Year</c> represents the year of the Advent of Code event the puzzle of the <see cref="DaySolver{TDaySolverOptions}"/> belongs to.
 	/// </summary>
 	int Year { get; }
 
 	/// <summary>
-	/// Property <c>Day</c> represents the day of the Advent of Code event the puzzle of the <see cref="DaySolver"/> belongs to.
+	/// Property <c>Day</c> represents the day of the Advent of Code event the puzzle of the <see cref="DaySolver{TDaySolverOptions}"/> belongs to.
 	/// </summary>
 	int Day { get; }
 
 	/// <summary>
-	/// Property <c>Title</c> represents the title of the day of the Advent of Code event the <see cref="DaySolver"/> belongs to.
+	/// Property <c>Title</c> represents the title of the day of the Advent of Code event the <see cref="DaySolver{TDaySolverOptions}"/> belongs to.
 	/// </summary>
 	string Title { get; }
 

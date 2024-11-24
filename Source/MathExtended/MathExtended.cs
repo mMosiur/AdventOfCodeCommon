@@ -1,8 +1,7 @@
 namespace AdventOfCode.Common;
 
 /// <summary>
-/// Provides extended mathematical functions, constants and algorithms.
+/// A static class that consists of more advanced mathematical functions and constants
+/// as an extension of the <see cref="System.Math"/> class.
 /// </summary>
-public static partial class MathExtended
-{
-}
+public static partial class MathExtended;

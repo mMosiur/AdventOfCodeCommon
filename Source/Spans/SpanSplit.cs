@@ -14,7 +14,7 @@ public readonly ref struct SpanSplit<T> where T : IEquatable<T>
 	/// <summary>The separator sequence used in split (if <see cref="_useSeparatorSpan"/> is true).</summary>
 	private readonly ReadOnlySpan<T> _separatorSpan;
 
-	/// <summary>A flag to signalize weather the separator is a sequence instead of a single value.</summary>
+	/// <summary>A flag to signalize whether the separator is a sequence instead of a single value.</summary>
 	private readonly bool _useSeparatorSpan;
 
 	/// <summary>Initialize the SpanSplit for a single value separator.</summary>

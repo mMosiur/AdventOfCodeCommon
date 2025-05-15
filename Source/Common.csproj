@@ -6,22 +6,34 @@
     <RootNamespace>AdventOfCode.Common</RootNamespace>
     <OutputType>Library</OutputType>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Deterministic builds -->
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageId>mMosiur.AdventOfCode.Common</PackageId>
     <Title>Advent of Code Common</Title>
-    <Version>0.3.0</Version>
+    <Version>0.3.1</Version>
     <Authors>mMosiur</Authors>
     <Description>This package contains common structures, functions and helpers for Advent of Code puzzle solving.</Description>
     <RepositoryUrl>https://github.com/mMosiur/AdventOfCodeCommon</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PackageProjectUrl>https://github.com/mMosiur/AdventOfCodeCommon</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>advent-of-code;aoc;helpers;utilities</PackageTags>
+    <PackageReleaseNotes>https://github.com/mMosiur/AdventOfCodeCommon/releases</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="../README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>

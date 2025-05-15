@@ -1,3 +1,5 @@
+using AdventOfCode.Common.SpanExtensions;
+
 namespace AdventOfCode.Common.Tests.Extensions;
 
 public class SpanSplitExtensionsTests
@@ -10,9 +12,8 @@ public class SpanSplitExtensionsTests
 		string[] expectedParts = ["a", "b", "c"];
 
 		int index = 0;
-		foreach (Range partRange in input.Split(separator))
+		foreach (ReadOnlySpan<char> part in input.SplitAsSpans(separator))
 		{
-			ReadOnlySpan<char> part = input[partRange];
 			Assert.Equal(expectedParts[index], part.ToString());
 			index++;
 		}
@@ -28,9 +29,8 @@ public class SpanSplitExtensionsTests
 		string[] expectedParts = ["a", "b", "c"];
 
 		int index = 0;
-		foreach (Range partRange in input.Split(separator))
+		foreach (ReadOnlySpan<char> part in input.SplitAsSpans(separator))
 		{
-			ReadOnlySpan<char> part = input[partRange];
 			Assert.Equal(expectedParts[index], part.ToString());
 			index++;
 		}

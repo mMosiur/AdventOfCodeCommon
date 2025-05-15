@@ -7,6 +7,53 @@ namespace AdventOfCode.Common.SpanExtensions;
 /// </summary>
 public static class SpanSplitExtensions
 {
+
+	#region SplitAsSpans
+
+	/// <summary>
+	/// Returns a <see cref="SpanSplit{T}"/> that can be used to split the <paramref name="span"/> into
+	/// parts separated by the specified <paramref name="separator"/> of type <typeparamref name="T"/>.
+	/// </summary>
+	/// <param name="span">The span to be split.</param>
+	/// <param name="separator">The separator value to be used to split the span.</param>
+	/// <typeparam name="T">The type of the elements in the span.</typeparam>
+	/// <returns>The <see cref="SpanSplit{T}"/> that allows enumeration of the split.</returns>
+	public static SpanSplit<T> SplitAsSpans<T>(this ReadOnlySpan<T> span, T separator)
+		where T : IEquatable<T>
+	{
+		return new(span, separator);
+	}
+
+	/// <inheritdoc cref="SplitAsSpans{T}(ReadOnlySpan{T}, T)"/>
+	public static SpanSplit<T> SplitAsSpans<T>(this Span<T> span, T separator)
+		where T : IEquatable<T>
+	{
+		return SplitAsSpans((ReadOnlySpan<T>)span, separator);
+	}
+
+	/// <summary>
+	/// Returns a <see cref="SpanSplit{T}"/> that can be used to split the <paramref name="span"/> into
+	/// parts separated by the specified <paramref name="separator"/> sequence of type <typeparamref name="T"/>.
+	/// </summary>
+	/// <param name="span">The span to be split.</param>
+	/// <param name="separator">The separator sequence to be used to split the span.</param>
+	/// <typeparam name="T">The type of the elements in the span.</typeparam>
+	/// <returns>The <see cref="SpanSplit{T}"/> that allows enumeration of the split.</returns>
+	public static SpanSplit<T> SplitAsSpans<T>(this ReadOnlySpan<T> span, ReadOnlySpan<T> separator)
+		where T : IEquatable<T>
+	{
+		return new(span, separator);
+	}
+
+	/// <inheritdoc cref="SplitAsSpans{T}(ReadOnlySpan{T}, ReadOnlySpan{T})"/>
+	public static SpanSplit<T> SplitAsSpans<T>(this Span<T> span, ReadOnlySpan<T> separator)
+		where T : IEquatable<T>
+	{
+		return SplitAsSpans((ReadOnlySpan<T>)span, separator);
+	}
+
+	#endregion
+
 	#region TrySplitInTwo
 
 	/// <summary>

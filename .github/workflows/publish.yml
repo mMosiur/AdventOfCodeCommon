@@ -17,13 +17,13 @@ jobs:
       run:
         working-directory: Source
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: 10.0.x
     - name: Setup Git
       run: |
         git config --global user.email "actions@github.com"
@@ -35,7 +35,7 @@ jobs:
     - name: Create package
       run: dotnet pack --configuration Release --no-build --include-symbols -p:SymbolPackageFormat=snupkg
     - name: Upload built package
-      uses: actions/upload-artifact@v4.4.3
+      uses: actions/upload-artifact@v5
       with:
         name: package
         path: |
@@ -50,7 +50,7 @@ jobs:
     - name: Add GitHub NuGet source
       run: dotnet nuget add source --username mMosiur --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/mMosiur/index.json"
     - name: Download built package
-      uses: actions/download-artifact@v4.1.8
+      uses: actions/download-artifact@v6
       with:
         name: package
     - name: Publish package to GitHub
@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Download built package
-      uses: actions/download-artifact@v4.1.8
+      uses: actions/download-artifact@v6
       with:
         name: package
     - name: Publish package to NuGet

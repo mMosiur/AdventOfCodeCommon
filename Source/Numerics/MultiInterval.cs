@@ -66,7 +66,7 @@ public sealed partial class MultiInterval<T>
 	public MultiInterval(IEnumerable<Interval<T>> ranges)
 		: this(ranges.TryGetNonEnumeratedCount(out int count) ? count : 2)
 	{
-		foreach (var range in ranges)
+		foreach (Interval<T> range in ranges)
 		{
 			if (range.IsEmpty) continue;
 			Add(range);

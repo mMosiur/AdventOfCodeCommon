@@ -8,23 +8,28 @@ namespace AdventOfCode.Common.StringExtensions;
 /// </summary>
 public static class StringExtensions
 {
-
 	/// <summary>
-	/// Enumerates the lines of the string.
+	/// <see cref="string"/> extensions
 	/// </summary>
-	/// <param name="str">The string the enumerator will work on.</param>
-	/// <remarks>
-	/// The enumerable is agnostic of line endings, that is it will work with any
-	/// as does <see cref="StringReader.ReadLine"/>.
-	/// </remarks>
-	public static IEnumerable<string> EnumerateLines(this string str)
+	/// <param name="str">The string to be operated on.</param>
+	extension(string str)
 	{
-		StringReader reader = new(str);
-		string? line = reader.ReadLine();
-		while (line is not null)
+		/// <summary>
+		/// Enumerates the lines of the string.
+		/// </summary>
+		/// <remarks>
+		/// The enumerable is agnostic of line endings, that is it will work with any
+		/// as does <see cref="StringReader.ReadLine"/>.
+		/// </remarks>
+		public IEnumerable<string> EnumerateLines()
 		{
-			yield return line;
-			line = reader.ReadLine();
+			StringReader reader = new(str);
+			string? line = reader.ReadLine();
+			while (line is not null)
+			{
+				yield return line;
+				line = reader.ReadLine();
+			}
 		}
 	}
 

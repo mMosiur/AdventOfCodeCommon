@@ -217,10 +217,10 @@ public readonly partial struct Interval<T>
 	public Interval<T> MovedBy(long offset)
 	{
 		if (IsEmpty) return Empty;
-		var newStartLong = long.CreateChecked(Start) + offset;
-		var newStartT = T.CreateChecked(newStartLong);
-		var newEndLong = long.CreateChecked(End) + offset;
-		var newEndT = T.CreateChecked(newEndLong);
+		long newStartLong = long.CreateChecked(Start) + offset;
+		T newStartT = T.CreateChecked(newStartLong);
+		long newEndLong = long.CreateChecked(End) + offset;
+		T newEndT = T.CreateChecked(newEndLong);
 		return new(newStartT, newEndT);
 	}
 

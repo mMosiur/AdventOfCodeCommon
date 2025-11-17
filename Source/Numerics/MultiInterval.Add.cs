@@ -59,7 +59,7 @@ public sealed partial class MultiInterval<T>
 	public void Add(IEnumerable<Interval<T>> intervals)
 	{
 		ArgumentNullException.ThrowIfNull(intervals);
-		foreach (var interval in intervals)
+		foreach (Interval<T> interval in intervals)
 		{
 			Add(interval);
 		}

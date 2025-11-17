@@ -3,8 +3,6 @@ name: CI
 on:
   pull_request:
     branches: [ 'main' ]
-  push:
-    branches: [ 'main' ]
 
 jobs:
   build:
@@ -42,13 +40,5 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration Release
 
-    - name: Test (all frameworks)
-      run: dotnet test --no-build --configuration Release --verbosity normal --logger trx
-
-    - name: Test (coverage - net10.0 only)
-      run: dotnet test --framework net10.0 --no-build --configuration Release --collect:'XPlat Code Coverage'
-
-    - name: Upload coverage
-      uses: codecov/codecov-action@v5
-      with:
-        files: '**/TestResults/**/coverage.cobertura.xml'
+    - name: Test
+      run: dotnet test --no-build --configuration Release --verbosity normal

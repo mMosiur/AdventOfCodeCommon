@@ -9,27 +9,51 @@ public static class VectorExtensions
 {
 
 	/// <summary>
-	/// Gets the length of the <paramref name="vector"/>.
+	/// Extensions for <see cref="Vector2D{T}"/>.
 	/// </summary>
-	public static T GetLength<T>(this Vector2D<T> vector) where T : unmanaged, INumber<T>, IRootFunctions<T>
+	/// <param name="vector">The vector to be operated on.</param>
+	/// <typeparam name="T">The numeric type of the vector components.</typeparam>
+	extension<T>(Vector2D<T> vector) where T : unmanaged, INumber<T>, IRootFunctions<T>
 	{
-		return T.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+		/// <summary>
+		/// Gets the length of the vector.
+		/// </summary>
+		public T GetLength()
+		{
+			return T.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+		}
 	}
 
 	/// <summary>
-	/// Gets the length of the <paramref name="vector"/>.
+	/// Extensions for <see cref="Vector3D{T}"/>.
 	/// </summary>
-	public static T GetLength<T>(this Vector3D<T> vector) where T : unmanaged, INumber<T>, IRootFunctions<T>
+	/// <param name="vector">The vector to be operated on.</param>
+	/// <typeparam name="T">The numeric type of the vector components.</typeparam>
+	extension<T>(Vector3D<T> vector) where T : unmanaged, INumber<T>, IRootFunctions<T>
 	{
-		return T.Sqrt(vector.X * vector.X + vector.Y * vector.Y + vector.Z * vector.Z);
+		/// <summary>
+		/// Gets the length of the vector.
+		/// </summary>
+		public T GetLength()
+		{
+			return T.Sqrt(vector.X * vector.X + vector.Y * vector.Y + vector.Z * vector.Z);
+		}
 	}
 
 	/// <summary>
-	/// Gets the length of the <paramref name="vector"/>.
+	/// Extensions for <see cref="Vector4D{T}"/>.
 	/// </summary>
-	public static T GetLength<T>(this Vector4D<T> vector) where T : unmanaged, INumber<T>, IRootFunctions<T>
+	/// <param name="vector">The vector to be operated on.</param>
+	/// <typeparam name="T">The numeric type of the vector components.</typeparam>
+	extension<T>(Vector4D<T> vector) where T : unmanaged, INumber<T>, IRootFunctions<T>
 	{
-		return T.Sqrt(vector.X * vector.X + vector.Y * vector.Y + vector.Z * vector.Z + vector.W * vector.W);
+		/// <summary>
+		/// Gets the length of the vector.
+		/// </summary>
+		public T GetLength()
+		{
+			return T.Sqrt(vector.X * vector.X + vector.Y * vector.Y + vector.Z * vector.Z + vector.W * vector.W);
+		}
 	}
 
 }

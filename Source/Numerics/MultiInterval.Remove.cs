@@ -16,7 +16,7 @@ public sealed partial class MultiInterval<T>
 		bool anythingRemoved = false;
 		for (int i = 0; i < _intervals.Count; i++)
 		{
-			var currentInterval = _intervals[i];
+			Interval<T> currentInterval = _intervals[i];
 
 			if (currentInterval.End < intervalToRemove.Start)
 			{
@@ -30,7 +30,7 @@ public sealed partial class MultiInterval<T>
 
 			anythingRemoved = true;
 
-			var (untouchedLeft, untouchedRight) = currentInterval.WithRemoved(intervalToRemove);
+			(Interval<T> untouchedLeft, Interval<T> untouchedRight) = currentInterval.WithRemoved(intervalToRemove);
 
 			switch (untouchedLeft.IsEmpty, untouchedRight.IsEmpty)
 			{

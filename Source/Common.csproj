@@ -21,6 +21,13 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
 
+  <PropertyGroup Label="PackageOutput">
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EnablePackageValidation>true</EnablePackageValidation>
+  </PropertyGroup>
+
   <PropertyGroup Label="Package">
     <PackageId>mMosiur.AdventOfCode.Common</PackageId>
     <Title>Advent of Code Common</Title>
